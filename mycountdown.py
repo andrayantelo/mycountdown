@@ -23,7 +23,7 @@ def pomodoro(work_time, down_time):
 			minute, sec = divmod(round(finish_time - time.time()), 60)
 			output = "%d:%02d" % (minute, sec)
 			
-			no_newline_print("\b" * len(output))
+			no_newline_print("\x08" * len(output))
 		#print the remaining time in minutes
 			sys.stdout.write(output)
 		# make sure it gets written to the screen
@@ -41,7 +41,8 @@ def pomodoro(work_time, down_time):
 		while time.time() < break_finish:
 			
 			minute, sec = divmod(round(break_finish - time.time()), 60)
-			no_newline_print("\b" * len(output))
+			
+			no_newline_print("\x08" * len(output))
 			
 			sys.stdout.write(output)
 			
