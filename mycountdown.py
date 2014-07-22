@@ -15,8 +15,8 @@ def pomodoro(work_time, down_time):
 	no_newline_print = sys.stdout.write
 	
 	while True:
-		start_time = time.time()
-		finish_time = start_time + work_time
+	
+		finish_time = time.time() + work_time
 	
 		while time.time() < finish_time:
 			
@@ -55,7 +55,7 @@ def pomodoro(work_time, down_time):
 		subprocess.call(['powershell', '-c', '(New-Object Media.SoundPlayer "C:\Users\Andrea\mystuff\dings.wav").PlaySync()'])
 		
 		
-	
+pomodoro(25,5)
 # want to figure out a way to pause it
 # make a UI
 #
