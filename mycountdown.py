@@ -16,17 +16,20 @@ def pomodoro(work_time, down_time):
 	
 	while True:
 	
-		finish_time = time.time() + work_time
-	
-		while time.time() < finish_time:
+		donewithwork = time.time() + work_time
+		# The very first time no_newline_print runs we need we will not have printed output yet so having output be an empty string keeps
+		# the cursor at the beginning of the line. 
+		output = ""
+		while time.time() < donewithwork:
 			
-			minute, sec = divmod(round(finish_time - time.time()), 60)
-			output = "%d:%02d" % (minute, sec)
+			minute, sec = divmod(round(donewithwork - time.time()), 60)
 			
 			no_newline_print("\x08" * len(output))
-		#print the remaining time in minutes
+			output = "%02d:%02d" % (minute, sec)
+			
+			#print the remaining time in minutes
 			sys.stdout.write(output)
-		# make sure it gets written to the screen
+			# make sure it gets written to the screen
 			sys.stdout.flush()
 			
 			time.sleep(1)
@@ -37,12 +40,14 @@ def pomodoro(work_time, down_time):
 		subprocess.call(['powershell', '-c', '(New-Object Media.SoundPlayer "C:\Users\Andrea\mystuff\dings.wav").PlaySync()'])
 	
 	
-		break_finish = finish_time + down_time	
-		while time.time() < break_finish:
+		donewithbreak = donewithwork + down_time
+		output = ""
+		while time.time() < donewithbreak:
 			
-			minute, sec = divmod(round(break_finish - time.time()), 60)
+			minute, sec = divmod(round(donewithbreak - time.time()), 60)
 			
 			no_newline_print("\x08" * len(output))
+			output = "%02d:%02d" % (minute, sec)
 			
 			sys.stdout.write(output)
 			
@@ -57,6 +62,6 @@ def pomodoro(work_time, down_time):
 		
 pomodoro(25,5)
 # want to figure out a way to pause it
-# make a UI
+# make a GUI
 #
 	
