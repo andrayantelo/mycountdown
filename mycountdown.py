@@ -1,6 +1,7 @@
 import time
 import subprocess
 import sys
+from Tkinter import *
 
 def pomodoro(work_time, down_time):
 	""" A countdown timer that alternates between counting down 25 min and 5 min.
@@ -63,5 +64,5 @@ def pomodoro(work_time, down_time):
 pomodoro(25,5)
 # want to figure out a way to pause it
 # make a GUI
-#
+# change format to 00:00:00
 	
