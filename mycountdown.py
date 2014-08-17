@@ -3,65 +3,112 @@ import subprocess
 import sys
 from Tkinter import *
 
-def pomodoro(work_time, down_time):
-	""" A countdown timer that alternates between counting down 25 min and 5 min.
-	
-	Parameters:
-	work_time: How many minutes you want to be working.
-	down_time: How long you want your break to be in minutes."""
-	# work_time and down_time are converted to seconds.
-	work_time = work_time * 60
-	down_time = down_time * 60
+class Mycountdown(object):
+    
+    def __init__(self, work_time, down_time):
+        """ Creates a Pomodoro timer.
+        
+        Parameters:
+        work_time : int 
+            how much time in minutes you will be working
+        down_time : int
+            how long in minutes you will be on break"""
+            
+        self.work_time = work_time * 60
+        self.down_time = down_time * 60
+        self.done_with_work = time.time()
+        self.done_with_break = self.done_with_work 
+        
+    def start(self):
+        """ Start the timer."""
+        
+        self.start_time = time.time()
+        self.done_with_work = self.start_time + self.work_time
+        self.done_with_break = self.done_with_work + self.down_time
+        
+    def time_left(self):
+        """ return the time left to work in seconds."""
+        
+        return self.done_with_work - time.time()
+        
+    def breaktime_left(self):
+        """ return the time left for break in seconds."""
+        
+        return self.done_with_break - time.time()
+        
+    def is_breaktime_expired(self):
+        return self.breaktime_left() < 0
+        
+    def format_time(self, clock_time):
+        """ Convert time in seconds to a minute second format.
+        
+        Parameters:
+        clock_time : int
+            the time left in seconds. """
+        
+        minute, sec = divmod(round(clock_time), 60)
+        output = "%02d:%02d" % (minute, sec)
+        return output
+        
+    def is_time_expired(self):
+        return self.time_left() < 0
+        
+            
+        
+        
+def no_newline_print(text):
+    sys.stdout.write(text)
+    # make sure it gets printedS
+    sys.stdout.flush()
 
-	no_newline_print = sys.stdout.write
+    
+def pomodoro(work_time, down_time):
+    """ A countdown timer that alternates between counting down 25 min and 5 min.
 	
-	while True:
-	
-		donewithwork = time.time() + work_time
-		# The very first time no_newline_print runs we need we will not have printed output yet so having output be an empty string keeps
-		# the cursor at the beginning of the line. 
-		output = ""
-		while time.time() < donewithwork:
+    Parameters:
+    work_time: How many minutes you want to be working.
+    down_time: How long you want your break to be in minutes."""
+ 
+    mytimer = Mycountdown(work_time, down_time)
+    
+    
+    mytimer.start()
+    while True:
+       
+        while not mytimer.is_time_expired():
+            
+            #print the remaining time in minutes
+            output = mytimer.format_time(mytimer.time_left())
+            no_newline_print(output)
+            
+            time.sleep(1)
 			
-			minute, sec = divmod(round(donewithwork - time.time()), 60)
-			
-			no_newline_print("\x08" * len(output))
-			output = "%02d:%02d" % (minute, sec)
-			
-			#print the remaining time in minutes
-			sys.stdout.write(output)
-			# make sure it gets written to the screen
-			sys.stdout.flush()
-			
-			time.sleep(1)
+            no_newline_print("\x08" * len(output))
+            			
 		
-		print "\n",
-		print "Break time!"
+        print "\n",
+        print "Break time!"
 	
-		subprocess.call(['powershell', '-c', '(New-Object Media.SoundPlayer "C:\Users\Andrea\mystuff\dings.wav").PlaySync()'])
+        #subprocess.call(['powershell', '-c', '(New-Object Media.SoundPlayer "C:\Users\Andrea\mystuff\dings.wav").PlaySync()'])
 	
 	
-		donewithbreak = donewithwork + down_time
-		output = ""
-		while time.time() < donewithbreak:
+        while not mytimer.is_breaktime_expired():
 			
-			minute, sec = divmod(round(donewithbreak - time.time()), 60)
+           # print the remaining time in minutes
+            output = mytimer.format_time(mytimer.breaktime_left())
 			
-			no_newline_print("\x08" * len(output))
-			output = "%02d:%02d" % (minute, sec)
+            no_newline_print(output)
 			
-			sys.stdout.write(output)
+            time.sleep(1)
+            
+            no_newline_print("\x08" * len(output))
 			
-			sys.stdout.flush()
-			
-			time.sleep(1)
-			
-		print "\n",
-		print "Work time!"
-		subprocess.call(['powershell', '-c', '(New-Object Media.SoundPlayer "C:\Users\Andrea\mystuff\dings.wav").PlaySync()'])
+        print "\n",
+        print "Work time!"
+        #subprocess.call(['powershell', '-c', '(New-Object Media.SoundPlayer "C:\Users\Andrea\mystuff\dings.wav").PlaySync()'])
 		
 		
-pomodoro(25,5)
+pomodoro(0.1, 5)
 # want to figure out a way to pause it
 # make a GUI
 # change format to 00:00:00
