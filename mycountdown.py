@@ -79,8 +79,10 @@ def pomodoro(work_time, down_time):
     mytimer = Mycountdown(work_time, down_time)
     
     
-    mytimer.start()
+    
     while True:
+        
+        mytimer.start()
        
         while not mytimer.is_time_expired():
             
