@@ -2,6 +2,7 @@ import time
 import subprocess
 import sys
 from Tkinter import *
+import pygame
 
 class Mycountdown(object):
     
@@ -25,19 +26,14 @@ class Mycountdown(object):
         self.start_time = time.time()
         self.done_with_work = self.start_time + self.work_time
         self.done_with_break = self.done_with_work + self.down_time
-        
+    
+    
     def time_left(self):
-        """ return the time left to work in seconds."""
-        
+        """ return the time left for work in seconds."""
         return self.done_with_work - time.time()
         
     def breaktime_left(self):
-        """ return the time left for break in seconds."""
-        
         return self.done_with_break - time.time()
-        
-    def is_breaktime_expired(self):
-        return self.breaktime_left() < 0
         
     def format_time(self, clock_time):
         """ Convert time in seconds to a minute second format.
@@ -52,6 +48,17 @@ class Mycountdown(object):
         
     def is_time_expired(self):
         return self.time_left() < 0
+        
+    def is_breaktime_expired(self):
+        return self.breaktime_left() < 0
+        
+    def play_alert(self):
+        
+        pygame.init()
+        pygame.mixer.init()
+        sounda = pygame.mixer.Sound("backupdings.wav")
+        
+        sounda.play()
         
             
         
@@ -88,7 +95,8 @@ def pomodoro(work_time, down_time):
 		
         print "\n",
         print "Break time!"
-	
+        
+        mytimer.play_alert()
         #subprocess.call(['powershell', '-c', '(New-Object Media.SoundPlayer "C:\Users\Andrea\mystuff\dings.wav").PlaySync()'])
 	
 	
@@ -105,11 +113,12 @@ def pomodoro(work_time, down_time):
 			
         print "\n",
         print "Work time!"
-        #subprocess.call(['powershell', '-c', '(New-Object Media.SoundPlayer "C:\Users\Andrea\mystuff\dings.wav").PlaySync()'])
-		
-		
-pomodoro(0.1, 5)
+        mytimer.play_alert()
+    
+    
+pomodoro(0.1, 0.1)
 # want to figure out a way to pause it
 # make a GUI
 # change format to 00:00:00
+# figure out why it says that there is no soundcard
 	
