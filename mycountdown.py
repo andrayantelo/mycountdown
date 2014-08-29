@@ -18,22 +18,28 @@ class Mycountdown(object):
         self.work_time = work_time * 60
         self.down_time = down_time * 60
         self.done_with_work = time.time()
-        self.done_with_break = self.done_with_work 
+       # self.done_with_break = self.done_with_work 
         
-    def start(self):
+    def start(self, done_time):
         """ Start the timer."""
         
         self.start_time = time.time()
-        self.done_with_work = self.start_time + self.work_time
-        self.done_with_break = self.done_with_work + self.down_time
-    
-    
-    def time_left(self):
-        """ return the time left for work in seconds."""
-        return self.done_with_work - time.time()
+        self.done_with_work = self.start_time + done_time
+        #self.done_with_break = self.start_time + self.work_time + self.down_time
+        #self.full_time = self.start_time + self.work_time + self.down_time
         
-    def breaktime_left(self):
-        return self.done_with_break - time.time()
+   # def fulltime_left(self):
+      #  """ return the time left for work + break in seconds."""
+      #  return self.full_time - time.time()
+    
+    
+  #  def time_left(self):
+     #   """ return the time left for work in seconds."""
+        
+     #   return self.done_with_work - time.time()
+        
+    def time_left(self):
+        return self.done_with_work - time.time()
         
     def format_time(self, clock_time):
         """ Convert time in seconds to a minute second format.
@@ -49,8 +55,11 @@ class Mycountdown(object):
     def is_time_expired(self):
         return self.time_left() < 0
         
-    def is_breaktime_expired(self):
-        return self.breaktime_left() < 0
+  #  def is_breaktime_expired(self):
+  #      return self.breaktime_left() < 0
+        
+  #  def is_fulltime_expired(self):
+  #      return self.fulltime_left() < 0
         
     def play_alert(self):
         
@@ -78,47 +87,80 @@ def pomodoro(work_time, down_time):
  
     mytimer = Mycountdown(work_time, down_time)
     
+   # down_time = mytimer.start_time + mytimer.work_time + mytimer.down_time
     
+    
+# maybe some kind of for loop over the variables?
+    the_list = [mytimer.work_time , mytimer.down_time]
+    print the_list
     
     while True:
-        
-        mytimer.start()
+        for i in the_list:
+            mytimer.start(i)
        
-        while not mytimer.is_time_expired():
+            while not mytimer.is_time_expired():
+            
+            
+                output = mytimer.format_time(mytimer.time_left())
+                no_newline_print(output)
+        
+                time.sleep(1)
+                
+                no_newline_print("\x08" * len(output))
+            
+            
+            if i == mytimer.work_time:
+                print "\n",
+                print "Break time!"
+        
+                mytimer.play_alert()
+                
+            if i == mytimer.down_time:
+                print"\n"
+                print "Work time!"
+                
+                mytimer.play_alert()
+       # mytimer.done_with_work = mytimer.done_with_break
+
+
+    #while True:
+     #   mytimer.start()
+       
+      #  while not mytimer.is_time_expired():
             
             #print the remaining time in minutes
-            output = mytimer.format_time(mytimer.time_left())
-            no_newline_print(output)
+       #     output = mytimer.format_time(mytimer.time_left())
+        #    no_newline_print(output)
             
-            time.sleep(1)
+       #     time.sleep(1)
 			
-            no_newline_print("\x08" * len(output))
+       #     no_newline_print("\x08" * len(output))
             			
 		
-        print "\n",
-        print "Break time!"
+       # print "\n",
+       # print "Break time!"
         
-        mytimer.play_alert()
+       # mytimer.play_alert()
         #subprocess.call(['powershell', '-c', '(New-Object Media.SoundPlayer "C:\Users\Andrea\mystuff\dings.wav").PlaySync()'])
 	
 	
-        while not mytimer.is_breaktime_expired():
+        #while not mytimer.is_breaktime_expired():
 			
            # print the remaining time in minutes
-            output = mytimer.format_time(mytimer.breaktime_left())
+         #   output = mytimer.format_time(mytimer.breaktime_left())
 			
-            no_newline_print(output)
+          #  no_newline_print(output)
 			
-            time.sleep(1)
+           # time.sleep(1)
             
-            no_newline_print("\x08" * len(output))
+            #no_newline_print("\x08" * len(output))
 			
-        print "\n",
-        print "Work time!"
-        mytimer.play_alert()
+       #print "\n",
+        #print "Work time!"
+        #mytimer.play_alert()
     
     
-pomodoro(0.1, 0.1)
+pomodoro(0.1, 0.5)
 # want to figure out a way to pause it
 # make a GUI
 # change format to 00:00:00
