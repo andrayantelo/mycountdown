@@ -4,6 +4,9 @@ import sys
 from Tkinter import *
 import pygame
 
+
+
+
 class Mycountdown(object):
     
     def __init__(self, work_time, down_time):
@@ -101,9 +104,34 @@ def pomodoro(work_time, down_time):
                 print "Work time!"
                 
                 mytimer.play_alert()
+                
+                
+                
+class App:
+    
+    def __init__(self, master):
+        
+        frame = Frame(master)
+        frame.pack()
+        
+        self.button = Button(frame, text = "Start", fg = "blue", command =
+                             pomodoro(0.1, 0.5))
+        self.button.pack(side = LEFT)
+        
+        self.button = Button(frame, text = "Quit", fg = "red", command =
+                             frame.quit)
+        self.button.pack(side = LEFT)
+
+
+root = Tk()
+
+app = App(root)
+
+root.mainloop()
+root.destroy()
     
     
-pomodoro(0.1, 0.5)
+
 # want to figure out a way to pause it
 # make a GUI
 # change format to 00:00:00
