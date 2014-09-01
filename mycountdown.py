@@ -18,27 +18,16 @@ class Mycountdown(object):
         self.work_time = work_time * 60
         self.down_time = down_time * 60
         self.done_with_work = time.time()
-       # self.done_with_break = self.done_with_work 
+       
         
     def start(self, done_time):
         """ Start the timer."""
         
         self.start_time = time.time()
         self.done_with_work = self.start_time + done_time
-        #self.done_with_break = self.start_time + self.work_time + self.down_time
-        #self.full_time = self.start_time + self.work_time + self.down_time
-        
-   # def fulltime_left(self):
-      #  """ return the time left for work + break in seconds."""
-      #  return self.full_time - time.time()
-    
-    
-  #  def time_left(self):
-     #   """ return the time left for work in seconds."""
-        
-     #   return self.done_with_work - time.time()
         
     def time_left(self):
+        """ returns the work or break time left"""
         return self.done_with_work - time.time()
         
     def format_time(self, clock_time):
@@ -55,13 +44,9 @@ class Mycountdown(object):
     def is_time_expired(self):
         return self.time_left() < 0
         
-  #  def is_breaktime_expired(self):
-  #      return self.breaktime_left() < 0
-        
-  #  def is_fulltime_expired(self):
-  #      return self.fulltime_left() < 0
-        
+
     def play_alert(self):
+        """Plays the time's up alert sound"""
         
         pygame.init()
         pygame.mixer.init()
@@ -87,12 +72,8 @@ def pomodoro(work_time, down_time):
  
     mytimer = Mycountdown(work_time, down_time)
     
-   # down_time = mytimer.start_time + mytimer.work_time + mytimer.down_time
-    
-    
-# maybe some kind of for loop over the variables?
+
     the_list = [mytimer.work_time , mytimer.down_time]
-    print the_list
     
     while True:
         for i in the_list:
@@ -120,44 +101,6 @@ def pomodoro(work_time, down_time):
                 print "Work time!"
                 
                 mytimer.play_alert()
-       # mytimer.done_with_work = mytimer.done_with_break
-
-
-    #while True:
-     #   mytimer.start()
-       
-      #  while not mytimer.is_time_expired():
-            
-            #print the remaining time in minutes
-       #     output = mytimer.format_time(mytimer.time_left())
-        #    no_newline_print(output)
-            
-       #     time.sleep(1)
-			
-       #     no_newline_print("\x08" * len(output))
-            			
-		
-       # print "\n",
-       # print "Break time!"
-        
-       # mytimer.play_alert()
-        #subprocess.call(['powershell', '-c', '(New-Object Media.SoundPlayer "C:\Users\Andrea\mystuff\dings.wav").PlaySync()'])
-	
-	
-        #while not mytimer.is_breaktime_expired():
-			
-           # print the remaining time in minutes
-         #   output = mytimer.format_time(mytimer.breaktime_left())
-			
-          #  no_newline_print(output)
-			
-           # time.sleep(1)
-            
-            #no_newline_print("\x08" * len(output))
-			
-       #print "\n",
-        #print "Work time!"
-        #mytimer.play_alert()
     
     
 pomodoro(0.1, 0.5)
