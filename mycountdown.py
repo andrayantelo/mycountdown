@@ -57,6 +57,10 @@ class Mycountdown(object):
         
         sounda.play()
         
+    def pause_timer(self):
+        """Pauses the timer"""
+        pass
+        
             
         
         
@@ -114,9 +118,12 @@ class App:
         frame = Frame(master)
         frame.pack()
         
-        self.button = Button(frame, text = "Start", fg = "blue", command =
+        self.button = Button(frame, text = "Start", fg = "green", command =
                              pomodoro(0.1, 0.5))
         self.button.pack(side = LEFT)
+        
+        self.button = Button(frame, text = "Stop", fg = "yellow", command = 
+                             
         
         self.button = Button(frame, text = "Quit", fg = "red", command =
                              frame.quit)
