@@ -10,13 +10,14 @@ import pygame
 class Mycountdown(object):
     
     def __init__(self, work_time, down_time):
-        """ Creates a Pomodoro timer.
+        """ Create a Pomodoro timer.
         
         Parameters:
         work_time : int 
             how much time in minutes you will be working
         down_time : int
-            how long in minutes you will be on break"""
+            how long in minutes you will be on break
+        """
             
         self.work_time = work_time * 60
         self.down_time = down_time * 60
@@ -38,7 +39,8 @@ class Mycountdown(object):
         
         Parameters:
         clock_time : int
-            the time left in seconds. """
+            the time left in seconds. 
+        """
         
         minute, sec = divmod(round(clock_time), 60)
         output = "%02d:%02d" % (minute, sec)
@@ -59,7 +61,6 @@ class Mycountdown(object):
         
     def pause_timer(self):
         """Pauses the timer"""
-        pass
         
             
         
@@ -75,7 +76,8 @@ def pomodoro(work_time, down_time):
 	
     Parameters:
     work_time: How many minutes you want to be working.
-    down_time: How long you want your break to be in minutes."""
+    down_time: How long you want your break to be in minutes.
+    """
  
     mytimer = Mycountdown(work_time, down_time)
     
@@ -109,25 +111,30 @@ def pomodoro(work_time, down_time):
                 
                 mytimer.play_alert()
                 
-                
+def start_function(): 
+    pomodoro(5, 25)
+    
+def stop_function():
+    pass
                 
 class App:
     
     def __init__(self, master):
         
         frame = Frame(master)
-        frame.pack()
+        frame.pack(side = LEFT)
         
-        self.button = Button(frame, text = "Start", fg = "green", command =
-                             pomodoro(0.1, 0.5))
+        w = Label(master, text = "Hello, world!", font =(12), 
+                  height = 10, width = 10)
+        w.pack(side = TOP)
+        
+        self.button = Button(frame, text = "Start", fg = "green",
+                             command = start_function)
         self.button.pack(side = LEFT)
-        
-        self.button = Button(frame, text = "Stop", fg = "yellow", command = 
                              
-        
-        self.button = Button(frame, text = "Quit", fg = "red", command =
+        self.button = Button(root, text = "Quit", fg = "red", command =
                              frame.quit)
-        self.button.pack(side = LEFT)
+        self.button.pack(side = RIGHT)
 
 
 root = Tk()
