@@ -1,7 +1,7 @@
 import time
 import subprocess
 import sys
-from Tkinter import *
+import Tkinter as tk
 import pygame
 
 
@@ -71,79 +71,45 @@ def no_newline_print(text):
     sys.stdout.flush()
 
     
-def pomodoro(work_time, down_time):
-    """ A countdown timer that alternates between counting down 25 min and 5 min.
-	
-    Parameters:
-    work_time: How many minutes you want to be working.
-    down_time: How long you want your break to be in minutes.
-    """
- 
-    mytimer = Mycountdown(work_time, down_time)
     
+class App(object):
+    
+    def __init__(self):
+        self.root = tk.Tk()
+        self.label = tk.Label(text="null")
+        self.label.pack()
+        self.remaining = 0
+        self.mytimer = Mycountdown(5, 25)
+        self.pomodoro(20)
+        
+    def gui_countdown(self, remaining):
+        
+        #self.mytimer.start(remaining)
+        while not self.mytimer.is_time_expired():
+            output = self.mytimer.format_time(self.remaining)
+            self.label.configure(text=output)
+            self.root.after(1000, self.pomodoro)
+        
 
-    the_list = [mytimer.work_time , mytimer.down_time]
-    
-    while True:
-        for i in the_list:
-            mytimer.start(i)
-       
-            while not mytimer.is_time_expired():
+       # if remaining is not None:
+        #    self.remaining = remaining
             
+       # if self.remaining <= 0:
+        #    self.label.configure(text="time's up!")
+        #else:
+         #   output = self.mytimer.format_time(self.remaining)
+          #  self.label.configure(text=output)
+           # self.remaining = self.remaining - 1
+           # self.root.after(1000, self.pomodoro)
             
-                output = mytimer.format_time(mytimer.time_left())
-                no_newline_print(output)
-        
-                time.sleep(1)
-                
-                no_newline_print("\x08" * len(output))
-            
-            
-            if i == mytimer.work_time:
-                print "\n",
-                print "Break time!"
-        
-                mytimer.play_alert()
-                
-            if i == mytimer.down_time:
-                print"\n"
-                print "Work time!"
-                
-                mytimer.play_alert()
-                
-def start_function(): 
-    pomodoro(5, 25)
+    def start(self):
+        self.pomodoro(20)
+        self.root.mainloop()
     
-def stop_function():
-    pass
-                
-class App:
-    
-    def __init__(self, master):
-        
-        frame = Frame(master)
-        frame.pack(side = LEFT)
-        
-        w = Label(master, text = "Hello, world!", font =(12), 
-                  height = 10, width = 10)
-        w.pack(side = TOP)
-        
-        self.button = Button(frame, text = "Start", fg = "green",
-                             command = start_function)
-        self.button.pack(side = LEFT)
-                             
-        self.button = Button(root, text = "Quit", fg = "red", command =
-                             frame.quit)
-        self.button.pack(side = RIGHT)
+if __name__ == "__main__":
+    app = App()
+    app.start()
 
-
-root = Tk()
-
-app = App(root)
-
-root.mainloop()
-root.destroy()
-    
     
 
 # want to figure out a way to pause it
