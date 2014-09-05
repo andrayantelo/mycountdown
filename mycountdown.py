@@ -80,30 +80,22 @@ class App(object):
         self.label.pack()
         self.remaining = 0
         self.mytimer = Mycountdown(5, 25)
-        self.pomodoro(20)
         
-    def gui_countdown(self, remaining):
+    def gui_countdown(self):
         
-        #self.mytimer.start(remaining)
-        while not self.mytimer.is_time_expired():
-            output = self.mytimer.format_time(self.remaining)
+        if not self.mytimer.is_time_expired():
+            output = self.mytimer.format_time(self.mytimer.time_left())
+            print repr(output)
             self.label.configure(text=output)
-            self.root.after(1000, self.pomodoro)
-        
-
-       # if remaining is not None:
-        #    self.remaining = remaining
+            self.root.after(1000, self.gui_countdown)
             
-       # if self.remaining <= 0:
-        #    self.label.configure(text="time's up!")
-        #else:
-         #   output = self.mytimer.format_time(self.remaining)
-          #  self.label.configure(text=output)
-           # self.remaining = self.remaining - 1
-           # self.root.after(1000, self.pomodoro)
+        else:
+            self.label.configure(text="time's up!")
+            
             
     def start(self):
-        self.pomodoro(20)
+        self.mytimer.start(20)
+        self.gui_countdown()
         self.root.mainloop()
     
 if __name__ == "__main__":
