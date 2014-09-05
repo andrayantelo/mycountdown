@@ -24,7 +24,7 @@ class Mycountdown(object):
         self.done_with_work = time.time()
        
         
-    def start(self, done_time):
+    def start_timer(self, done_time):
         """ Start the timer."""
         
         self.start_time = time.time()
@@ -86,6 +86,7 @@ class App(object):
                                 =self.root.quit)
         self.quit_button.pack(side=tk.LEFT)
         self.mytimer = Mycountdown(5, 25)
+       
         
     def gui_countdown(self):
         
@@ -103,12 +104,9 @@ class App(object):
             
     def start(self):
         
-        self.mytimer.start(10)
+        self.mytimer.start_timer(10)
         self.gui_countdown()
         
-       
-
-#def actual_start():
     
 if __name__ == "__main__":
     app = App()
