@@ -78,7 +78,12 @@ class App(object):
         self.root = tk.Tk()
         self.label = tk.Label(text="null")
         self.label.pack()
-        self.remaining = 0
+        self.button = tk.Button(self.root, text="START", fg="green", command
+                             =self.start)
+        self.button.pack()
+        self.button = tk.Button(self.root, text="QUIT", fg="red", command
+                                =self.root.quit)
+        self.button.pack()
         self.mytimer = Mycountdown(5, 25)
         
     def gui_countdown(self):
@@ -99,8 +104,8 @@ class App(object):
         self.root.mainloop()
     
 if __name__ == "__main__":
-    app = App()
-    app.start()
+        app = App()
+        app.start()
 
     
 
