@@ -78,9 +78,9 @@ class App(object):
         self.root = tk.Tk()
         self.label = tk.Label(text="null")
         self.label.pack()
-        self.label.configure(text="00:00")
-        self.start_button = tk.Button(self.root, text="START", fg="green", command
-                             =self.start)
+        self.label.configure(text="00:00", font=16)
+        self.start_button = tk.Button(self.root, text="START", fg="green", 
+                                      command=self.start)
         self.start_button.pack(side=tk.LEFT)
         self.quit_button = tk.Button(self.root, text="QUIT", fg="red", command
                                 =self.root.quit)
@@ -92,16 +92,18 @@ class App(object):
         if not self.mytimer.is_time_expired():
             output = self.mytimer.format_time(self.mytimer.time_left())
             print repr(output)
-            self.label.configure(text=output)
+            self.label.configure(text=output, font=16)
             self.root.after(1000, self.gui_countdown)
             
         else:
-            self.label.configure(text="time's up!")
+            self.label.configure(text="Time's up!")
+            self.mytimer.play_alert()
+            
             
             
     def start(self):
         
-        self.mytimer.start(20)
+        self.mytimer.start(10)
         self.gui_countdown()
         
        
