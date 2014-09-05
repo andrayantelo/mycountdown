@@ -80,10 +80,10 @@ class App(object):
         self.label.pack()
         self.button = tk.Button(self.root, text="START", fg="green", command
                              =self.start)
-        self.button.pack()
+        self.button.pack(side=tk.LEFT)
         self.button = tk.Button(self.root, text="QUIT", fg="red", command
                                 =self.root.quit)
-        self.button.pack()
+        self.button.pack(side=tk.LEFT)
         self.mytimer = Mycountdown(5, 25)
         
     def gui_countdown(self):
