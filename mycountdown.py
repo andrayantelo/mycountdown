@@ -22,6 +22,7 @@ class Mycountdown(object):
         self.work_time = work_time * 60
         self.down_time = down_time * 60
         self.done_with_work = time.time()
+        self.reset_case = True
        
         
     def start_timer(self, done_time):
@@ -47,6 +48,7 @@ class Mycountdown(object):
         return output
         
     def is_time_expired(self):
+    
         return self.time_left() < 0
         
 
@@ -82,6 +84,9 @@ class App(object):
         self.start_button = tk.Button(self.root, text="START", fg="green", 
                                       command=self.start)
         self.start_button.pack(side=tk.LEFT)
+        self.reset_button = tk.Button(self.root, text="RESET", fg="yellow",
+                                     command=self.reset)
+        self.reset_button.pack(side=tk.LEFT)
         self.quit_button = tk.Button(self.root, text="QUIT", fg="red", command
                                 =self.root.quit)
         self.quit_button.pack(side=tk.LEFT)
@@ -90,17 +95,28 @@ class App(object):
         
     def gui_countdown(self):
         
-        if not self.mytimer.is_time_expired():
+        
+        if not self.mytimer.is_time_expired() and self.mytimer.reset_case:
             output = self.mytimer.format_time(self.mytimer.time_left())
             print repr(output)
+            print self.mytimer.reset_case
             self.label.configure(text=output, font=16)
             self.root.after(1000, self.gui_countdown)
-            
-        else:
+        
+        if self.mytimer.is_time_expired():
             self.label.configure(text="Time's up!")
             self.mytimer.play_alert()
+        
+        if not self.mytimer.reset_case:
+            self.label.configure(text="00:00")
+        
+        if not self.mytimer.reset_case and self.mytimer.is_time_expired():
+            self.label.configure(text="00:00")
             
-            
+    def reset(self):
+        self.mytimer.reset_case = False
+        return self.mytimer.reset_case
+        
             
     def start(self):
         
