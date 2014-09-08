@@ -3,6 +3,7 @@ import subprocess
 import sys
 import Tkinter as tk
 import pygame
+from functools import partial
 
 
 
@@ -90,6 +91,26 @@ class App(object):
         self.quit_button = tk.Button(self.root, text="QUIT", fg="red", command
                                 =self.root.quit)
         self.quit_button.pack(side=tk.LEFT)
+        lf = tk.LabelFrame(self.root, text="Keypad", bd=3) 
+        lf.pack(padx=15, pady=10)
+        self.button_list = [
+        '7','8','9',
+        '4','5','6',
+        '1','2','3',
+        '0']
+        r = 1
+        c = 0
+        n = 0
+        btn = list(range(len(self.button_list)))
+        for label in self.button_list:
+            cmd = partial(self.click, label)
+            btn[n] = tk.Button(lf, text=label, width=5, command=cmd)
+            btn[n].grid(row=r, column=c)
+            n += 1
+            c += 1
+            if c > 4:
+                c = 0
+                r +=1
         self.mytimer = Mycountdown(5, 25)
        
         
@@ -106,6 +127,7 @@ class App(object):
         if self.mytimer.is_time_expired():
             self.label.configure(text="Time's up!")
             self.mytimer.play_alert()
+            print self.mytimer.reset_case
         
         if not self.mytimer.reset_case:
             self.label.configure(text="00:00")
@@ -115,14 +137,22 @@ class App(object):
             
     def reset(self):
         self.mytimer.reset_case = False
+        print self.mytimer.reset_case
+        print self.mytimer.is_time_expired()
         return self.mytimer.reset_case
         
             
     def start(self):
         
-        self.mytimer.start_timer(10)
+        self.mytimer.start_timer(5)
         self.gui_countdown()
         
+    def click(self, btn):
+        s = "%s" % btn
+        output = "00:00"
+        for letter in output:
+            self.label.configure(text="00:0%s"% s)
+       # self.root.title(s)
     
 if __name__ == "__main__":
     app = App()
