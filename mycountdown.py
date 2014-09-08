@@ -4,6 +4,9 @@ import sys
 import Tkinter as tk
 import pygame
 from functools import partial
+import string
+import re
+
 
 
 
@@ -101,14 +104,14 @@ class App(object):
         r = 1
         c = 0
         n = 0
-        btn = list(range(len(self.button_list)))
+        number_button = list(range(len(self.button_list)))
         for label in self.button_list:
             cmd = partial(self.click, label)
-            btn[n] = tk.Button(lf, text=label, width=5, command=cmd)
-            btn[n].grid(row=r, column=c)
+            number_button[n] = tk.Button(lf, text=label, width=5, command=cmd)
+            number_button[n].grid(row=r, column=c)
             n += 1
             c += 1
-            if c > 4:
+            if c > 2:
                 c = 0
                 r +=1
         self.mytimer = Mycountdown(5, 25)
@@ -147,12 +150,16 @@ class App(object):
         self.mytimer.start_timer(5)
         self.gui_countdown()
         
-    def click(self, btn):
-        s = "%s" % btn
+    def click(self, number_button):
+        s = "%s" % number_button
         output = "00:00"
-        for letter in output:
-            self.label.configure(text="00:0%s"% s)
-       # self.root.title(s)
+        for i in range(1, len(output)):
+            
+            output = re.sub(output[len(output)-i], s, output)
+
+            self.label.configure(text=output)
+            break
+      
     
 if __name__ == "__main__":
     app = App()
