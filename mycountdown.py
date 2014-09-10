@@ -90,7 +90,7 @@ class App(object):
                                       command=self.start).grid(row=1, column=0, 
                                       sticky=tk.E)
         self.reset_button = tk.Button(self.root, text="RESET", fg="yellow",
-                                      command=self.reset).grid(row=1,
+                                      command=self.reset, width=5).grid(row=1,
                                       column=1)
         self.quit_button = tk.Button(self.root, text="QUIT", fg="red",
                                       command=self.root.quit,width=5).grid(
@@ -156,12 +156,35 @@ class App(object):
     def click(self, number_button):
         s = "%s" % number_button
         output = "00:00"
-        for i in range(1, len(output)):
+        output = ','.join(output)
+        output = output.split(',')
+        
+        
+        while True:
+            n -= 1
+            if n == 2:
+                n -= 1
+                output[n] = s
+                print output
+                break
+            else:
+                output[n] = s
+                print output
+                break
+        
+        
+        
+        #try a list with .split
+        # try counting how many times click method is called and then 
+        # using that somehow to determine n in the click method
+        
+        
+        #for i in range(1, len(output)):
             
-            output = output.replace(output[len(output)-i], s)
+         #   output = output.replace(output[len(output)-i], s)
 
-            self.textvar.set(output)
-            break
+          #  self.textvar.set(output)
+           # break
       
     
 if __name__ == "__main__":
