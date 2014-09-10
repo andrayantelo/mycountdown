@@ -83,7 +83,9 @@ class App(object):
     def __init__(self):
         self.root = tk.Tk()
         self.root.title("My Countdown")
-        self.label = tk.Label(text="00:00", font=16).grid(row=0, columnspan=6)
+        self.textvar = tk.StringVar()
+        self.textvar.set("00:00")
+        self.label = tk.Label(textvariable=self.textvar, font=16).grid(row=0, columnspan=6)
         self.start_button = tk.Button(self.root, text="START", fg="green",
                                       command=self.start).grid(row=1, column=0, 
                                       sticky=tk.E)
@@ -91,11 +93,10 @@ class App(object):
                                       command=self.reset).grid(row=1,
                                       column=1)
         self.quit_button = tk.Button(self.root, text="QUIT", fg="red",
-                                      command=self.root.quit,width=5).grid(row=1,
-                                      column=2, sticky=tk.E)
+                                      command=self.root.quit,width=5).grid(
+                                      row=1, column=2, sticky=tk.E)
         lf = tk.LabelFrame(self.root, text="Keypad", bd=3, 
                            relief=tk.RIDGE).grid(columnspan=3)
-        #lf.pack(side=tk.BOTTOM)
         self.button_list = [
         '7','8','9',
         '4','5','6',
@@ -123,23 +124,22 @@ class App(object):
         
         
         if not self.mytimer.is_time_expired() and self.mytimer.reset_case:
-            print type(self.label)
             output = self.mytimer.format_time(self.mytimer.time_left())
             print repr(output)
             print self.mytimer.reset_case
-            self.label.configure(text=output, font=16)
+            self.textvar.set(output)
             self.root.after(1000, self.gui_countdown)
         
         if self.mytimer.is_time_expired():
-            self.label.configure(text="Time's up!")
+            self.textvar.set("Time's up!")
             self.mytimer.play_alert()
             print self.mytimer.reset_case
         
         if not self.mytimer.reset_case:
-            self.label.configuretext=("00:00")
+            self.textvar.set("00:00")
         
         if not self.mytimer.reset_case and self.mytimer.is_time_expired():
-            self.label.configure(text="00:00")
+            self.textvar.set("00:00")
             
     def reset(self):
         self.mytimer.reset_case = False
@@ -160,7 +160,7 @@ class App(object):
             
             output = output.replace(output[len(output)-i], s)
 
-            self.label.configure(text=output)
+            self.textvar.set(output)
             break
       
     
