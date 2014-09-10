@@ -82,8 +82,8 @@ class App(object):
     
     def __init__(self):
         self.root = tk.Tk()
-        self.label = tk.Label(text="null")
-        self.label.pack()
+        self.label = tk.Label(text="null").grid(row=0)
+        self.label.pack(side=tk.TOP)
         self.label.configure(text="00:00", font=16)
         self.start_button = tk.Button(self.root, text="START", fg="green", 
                                       command=self.start)
@@ -94,8 +94,8 @@ class App(object):
         self.quit_button = tk.Button(self.root, text="QUIT", fg="red", command
                                 =self.root.quit)
         self.quit_button.pack(side=tk.LEFT)
-        lf = tk.LabelFrame(self.root, text="Keypad", bd=3) 
-        lf.pack(padx=15, pady=10)
+        lf = tk.LabelFrame(self.root, text="Keypad", bd=3, relief=tk.RIDGE) 
+        lf.pack(side=tk.BOTTOM)
         self.button_list = [
         '7','8','9',
         '4','5','6',
@@ -155,7 +155,7 @@ class App(object):
         output = "00:00"
         for i in range(1, len(output)):
             
-            output = re.sub(output[len(output)-i], s, output)
+            output = output.replace(output[len(output)-i], s)
 
             self.label.configure(text=output)
             break
