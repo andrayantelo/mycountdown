@@ -82,6 +82,7 @@ class App(object):
     
     def __init__(self):
         self.root = tk.Tk()
+        self.root.title("My Countdown")
         self.label = tk.Label(text="00:00", font=16).grid(row=0, columnspan=6)
         self.start_button = tk.Button(self.root, text="START", fg="green",
                                       command=self.start).grid(row=1, column=0, 
