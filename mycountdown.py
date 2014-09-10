@@ -84,34 +84,37 @@ class App(object):
         self.root = tk.Tk()
         self.label = tk.Label(text="00:00", font=16).grid(row=0, columnspan=6)
         self.start_button = tk.Button(self.root, text="START", fg="green",
-                                      command=self.start).grid(row=1, 
-                                      sticky=tk.W)
+                                      command=self.start).grid(row=1, column=0, 
+                                      sticky=tk.E)
         self.reset_button = tk.Button(self.root, text="RESET", fg="yellow",
                                       command=self.reset).grid(row=1,
-                                      column=2, sticky=tk.W)
-        self.reset_button = tk.Button(self.root, text="QUIT", fg="red",
-                                      command=self.root.quit).grid(row=1,
-                                      column=3, sticky=tk.W)
-        #lf = tk.LabelFrame(self.root, text="Keypad", bd=3, relief=tk.RIDGE) 
+                                      column=1)
+        self.quit_button = tk.Button(self.root, text="QUIT", fg="red",
+                                      command=self.root.quit,width=5).grid(row=1,
+                                      column=2, sticky=tk.E)
+        lf = tk.LabelFrame(self.root, text="Keypad", bd=3, 
+                           relief=tk.RIDGE).grid(columnspan=3)
         #lf.pack(side=tk.BOTTOM)
-        #self.button_list = [
-        #'7','8','9',
-        #'4','5','6',
-        #'1','2','3',
-        #'0']
-        #r = 1
-        #c = 0
-        #n = 0
-        #number_button = list(range(len(self.button_list)))
-        #for label in self.button_list:
-        #    cmd = partial(self.click, label)
-        #    number_button[n] = tk.Button(lf, text=label, width=5, command=cmd)
-        #    number_button[n].grid(row=r, column=c)
-        #    n += 1
-        #    c += 1
-        #    if c > 2:
-        #        c = 0
-        #        r +=1
+        self.button_list = [
+        '7','8','9',
+        '4','5','6',
+        '1','2','3',
+        '0']
+        r = 4
+        c = 0
+        n = 0
+        number_button = list(range(len(self.button_list)))
+        for label in self.button_list:
+            cmd = partial(self.click, label)
+            number_button[n] = tk.Button(lf, text=label, width=5, command=cmd)
+            number_button[n].grid(row=r, column=c)
+            n += 1
+            c += 1
+            if c > 2:
+                c = 0
+                r +=1
+            if n == 9:
+                c = 1
         self.mytimer = Mycountdown(5, 25)
        
         
