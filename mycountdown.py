@@ -117,6 +117,10 @@ class App(object):
                 r +=1
             if n == 9:
                 c = 1
+        self.count = []
+        self.output = "00:00"
+        self.old_s = '0'
+        self.s = '0'
         self.mytimer = Mycountdown(5, 25)
        
         
@@ -154,23 +158,27 @@ class App(object):
         self.gui_countdown()
         
     def click(self, number_button):
-        s = "%s" % number_button
-        output = "00:00"
-        output = ','.join(output)
-        output = output.split(',')
+        self.old_s = self.s
         
+        print self.output
+        self.s = "%s" % number_button
         
-        while True:
-            n -= 1
-            if n == 2:
-                n -= 1
-                output[n] = s
-                print output
-                break
-            else:
-                output[n] = s
-                print output
-                break
+        self.output = ','.join(self.output)
+        self.output = self.output.split(',')
+        
+        self.output[4] = self.s
+        self.output[4-len(self.count)] = self.old_s
+        
+        self.count.append(1)
+        print self.old_s
+        print self.output
+        
+        return self.output
+        
+                
+    def how_many_times():
+        
+        print len(self.count)
         
         
         
