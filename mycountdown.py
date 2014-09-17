@@ -158,22 +158,22 @@ class App(object):
         self.gui_countdown()
         
     def click(self, number_button):
+        self.count.append(1)
+        print number_button
         self.old_s = self.s
         
-        print self.output
         self.s = "%s" % number_button
         
-        self.output = ','.join(self.output)
-        self.output = self.output.split(',')
+        self.list_output = list(self.output)
         
-        self.output[4] = self.s
-        self.output[4-len(self.count)] = self.old_s
+        self.list_output[4] = self.s
+        self.list_output[3] = self.old_s
+        print self.list_output[4]
         
-        self.count.append(1)
-        print self.old_s
-        print self.output
+        #print self.old_s
+        print self.list_output
         
-        return self.output
+        return self.list_output
         
                 
     def how_many_times():
