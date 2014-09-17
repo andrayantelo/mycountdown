@@ -121,6 +121,7 @@ class App(object):
         self.output = "00:00"
         self.old_s = '0'
         self.s = '0'
+        self.list_output = list(self.output)
         self.mytimer = Mycountdown(5, 25)
         
        
@@ -163,7 +164,7 @@ class App(object):
         self.s = "%s" % number_button
         
         # instead of 12:34 you have 43 : 21
-        self.list_output = list(self.output)
+       
         self.list_output.reverse()
         
         for i in range(0,5):
@@ -177,9 +178,14 @@ class App(object):
         
         position = self.list_output.index(self.old_s)
         self.list_output[position + 1] = self.old_s
+        print self.list_output
         
         self.list_output.reverse()
-        self.output = self.list_output
+        return self.list_output
+        
+        
+        #self.list_output.reverse()
+        #self.output = self.list_output
         
         #self.count.append(1)
         #print number_button
