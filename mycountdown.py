@@ -102,27 +102,24 @@ class App(object):
         '4','5','6',
         '7','8','9',
         '0']
-        r = 4
-        c = 0
+        row = 4
+        column = 0
         n = 0
         number_button = list(range(len(self.button_list)))
         for label in self.button_list:
-            cmd = partial(self.click, label)
-            number_button[n] = tk.Button(lf, text=label, width=5, command=cmd)
-            number_button[n].grid(row=r, column=c)
+            button_command = partial(self.click, label)
+            number_button[n] = tk.Button(lf, text=label, width=5, command=button_command)
+            number_button[n].grid(row=row, column=column)
             n += 1
-            c += 1
-            if c > 2:
-                c = 0
-                r +=1
+            column += 1
+            if column > 2:
+                column = 0
+                row +=1
             if n == 9:
-                c = 1
+                column = 1
         self.count = []
-        self.output = "00:00"
-        self.old_s = '0'
-        self.s = '0'
-        self.list_output = list(self.output)
         self.mytimer = Mycountdown(5, 25)
+        self.click_list = []
         
        
         
@@ -160,23 +157,45 @@ class App(object):
         self.gui_countdown()
         
     def click(self, number_button):
-        position = self.list_output.index(self.s)
-        self.list_output[position - 1] = self.s
-        self.s = "%s" % number_button
+        self.click_list.append(number_button)
+        self.count.append(1)
+        
+        output = "00:00"
+        list_output = list(output)
+        list_output[0] = number_button
+        
+        
+        print list_output
+        
+        position = list_output.index(number_button)
+        list_output[position + len(self.count)] = self.click_list[0]
+        
+        print list_output
+        return list_output
+        
+        
+        
+        # BREAK BREAK BREAK
+        #position = self.list_output.index(self.s)
+        #self.list_output[position - 1] = self.s
+        #self.s = "%s" % number_button
         
         # instead of 12:34 you have 43 : 21
        
-        self.list_output.reverse()
+        #self.list_output.reverse()
         
                
-        self.list_output[len(self.count)] = self.s 
-        self.count.append(1)
+        #self.list_output[len(self.list_output) - 1] = self.s 
+        #self.count.append(1)
         
-        self.list_output.reverse()
+        #self.list_output.reverse()
     
-        print self.list_output
-        return self.list_output
+        #print self.list_output
+        #position = self.list_output.index(self.s)
+        #self.list_output[position] = self.s
+        #return self.list_output
         
+        # BREAK BREAK BREAK
         
         #self.list_output.reverse()
         #self.output = self.list_output
