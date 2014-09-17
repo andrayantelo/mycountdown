@@ -172,12 +172,12 @@ class App(object):
              self.list_output[i] = self.s 
              break
         
-        self.old_s = self.s
+        
         
         print self.list_output
         
-        position = self.list_output.index(self.old_s)
-        self.list_output[position + 1] = self.old_s
+        position = self.list_output.index(self.s)
+        self.list_output[position + 1] = self.s
         print self.list_output
         
         self.list_output.reverse()
