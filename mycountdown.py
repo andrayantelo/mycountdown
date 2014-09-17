@@ -98,9 +98,9 @@ class App(object):
         lf = tk.LabelFrame(self.root, text="Keypad", bd=3, 
                            relief=tk.RIDGE).grid(columnspan=3)
         self.button_list = [
-        '7','8','9',
-        '4','5','6',
         '1','2','3',
+        '4','5','6',
+        '7','8','9',
         '0']
         r = 4
         c = 0
@@ -160,34 +160,28 @@ class App(object):
         self.gui_countdown()
         
     def click(self, number_button):
-        
+        position = self.list_output.index(self.s)
+        self.list_output[position - 1] = self.s
         self.s = "%s" % number_button
         
         # instead of 12:34 you have 43 : 21
        
         self.list_output.reverse()
         
-        for i in range(0,5):
                
-             self.list_output[i] = self.s 
-             break
-        
-        
-        
-        print self.list_output
-        
-        position = self.list_output.index(self.s)
-        self.list_output[position + 1] = self.s
-        print self.list_output
+        self.list_output[len(self.count)] = self.s 
+        self.count.append(1)
         
         self.list_output.reverse()
+    
+        print self.list_output
         return self.list_output
         
         
         #self.list_output.reverse()
         #self.output = self.list_output
         
-        #self.count.append(1)
+        
         #print number_button
         #self.old_s = self.s
         
@@ -207,7 +201,7 @@ class App(object):
                 
     def how_many_times():
         
-        print len(self.count)
+        return len(self.count)
         
         
         
