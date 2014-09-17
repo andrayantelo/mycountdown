@@ -122,6 +122,7 @@ class App(object):
         self.old_s = '0'
         self.s = '0'
         self.mytimer = Mycountdown(5, 25)
+        
        
         
     def gui_countdown(self):
@@ -158,22 +159,44 @@ class App(object):
         self.gui_countdown()
         
     def click(self, number_button):
-        self.count.append(1)
-        print number_button
-        self.old_s = self.s
         
         self.s = "%s" % number_button
         
+        # instead of 12:34 you have 43 : 21
         self.list_output = list(self.output)
+        self.list_output.reverse()
         
-        self.list_output[4] = self.s
-        self.list_output[3] = self.old_s
-        print self.list_output[4]
+        for i in range(0,5):
+               
+             self.list_output[i] = self.s 
+             break
         
-        #print self.old_s
+        self.old_s = self.s
+        
         print self.list_output
         
-        return self.list_output
+        position = self.list_output.index(self.old_s)
+        self.list_output[position + 1] = self.old_s
+        
+        self.list_output.reverse()
+        self.output = self.list_output
+        
+        #self.count.append(1)
+        #print number_button
+        #self.old_s = self.s
+        
+        #self.s = "%s" % number_button
+        
+        #self.list_output = list(self.output)
+        
+        #self.list_output[4] = self.s
+        #self.list_output[self.list_output.index(self.old_s)] = self.old_s
+        #print self.list_output[4]
+        
+        #print self.old_s
+        #print self.list_output
+        
+        #return self.list_output
         
                 
     def how_many_times():
