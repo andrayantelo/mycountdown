@@ -121,6 +121,7 @@ class App(object):
         
         self.mytimer = Mycountdown(5, 25)
         self.click_list = []
+        self.output = "0000"
         
        
         
@@ -161,15 +162,28 @@ class App(object):
      
         self.click_list.append(number_button)
 
-        print self.click_list
-
         
-        output = "00:00"
-        list_output = list(output)
-        list_output = list_output[:-len(self.click_list)] + self.click_list
+        how_many_clicks = len(self.click_list)
+        print how_many_clicks
+        if how_many_clicks < 4:
+            
+            list_output = list(self.output)
+        
+            list_output = list_output[:-how_many_clicks] + self.click_list
+            self.output = ''.join(list_output)
+            print list_output
+            
+        elif how_many_clicks > 4:
+            
+            list_output = []
+            list_output =  list_output[:-how_many_clicks] + self.click_list
+            self.output = ''.join(list_output)
+            print list_output
+        
+        print self.output
         
         
-        print list_output
+        return self.output
         
       
       
