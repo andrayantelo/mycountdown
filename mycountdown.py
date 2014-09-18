@@ -85,6 +85,7 @@ class App(object):
         self.root.title("My Countdown")
         self.textvar = tk.StringVar()
         self.textvar.set("00:00")
+        self.count = []
         self.label = tk.Label(textvariable=self.textvar, font=16).grid(row=0, columnspan=6)
         self.start_button = tk.Button(self.root, text="START", fg="green",
                                       command=self.start).grid(row=1, column=0, 
@@ -107,7 +108,7 @@ class App(object):
         n = 0
         number_button = list(range(len(self.button_list)))
         for label in self.button_list:
-            button_command = partial(self.click, label)
+            button_command = partial(self.click, label, len(self.count))
             number_button[n] = tk.Button(lf, text=label, width=5, command=button_command)
             number_button[n].grid(row=row, column=column)
             n += 1
@@ -117,7 +118,7 @@ class App(object):
                 row +=1
             if n == 9:
                 column = 1
-        self.count = []
+        
         self.mytimer = Mycountdown(5, 25)
         self.click_list = []
         
@@ -156,22 +157,25 @@ class App(object):
         self.mytimer.start_timer(5)
         self.gui_countdown()
         
-    def click(self, number_button):
+    def click(self, number_button, count):
+        count = len(self.count)
         self.click_list.append(number_button)
         self.count.append(1)
+        print self.click_list
+
         
         output = "00:00"
         list_output = list(output)
-        list_output[0] = number_button
+        list_output = list_output[:-len(self.click_list)] + self.click_list
         
         
         print list_output
         
-        position = list_output.index(number_button)
-        list_output[position + len(self.count)] = self.click_list[0]
+        #position = list_output.index(number_button)
+        #list_output[position + len(self.count)] = self.click_list[len(self.count)-1]
         
-        print list_output
-        return list_output
+        #print list_output
+        #return list_output
         
         
         
