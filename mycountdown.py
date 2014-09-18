@@ -158,9 +158,9 @@ class App(object):
         self.gui_countdown()
         
     def click(self, number_button, count):
-        count = len(self.count)
+     
         self.click_list.append(number_button)
-        self.count.append(1)
+
         print self.click_list
 
         
@@ -171,74 +171,7 @@ class App(object):
         
         print list_output
         
-        #position = list_output.index(number_button)
-        #list_output[position + len(self.count)] = self.click_list[len(self.count)-1]
-        
-        #print list_output
-        #return list_output
-        
-        
-        
-        # BREAK BREAK BREAK
-        #position = self.list_output.index(self.s)
-        #self.list_output[position - 1] = self.s
-        #self.s = "%s" % number_button
-        
-        # instead of 12:34 you have 43 : 21
-       
-        #self.list_output.reverse()
-        
-               
-        #self.list_output[len(self.list_output) - 1] = self.s 
-        #self.count.append(1)
-        
-        #self.list_output.reverse()
-    
-        #print self.list_output
-        #position = self.list_output.index(self.s)
-        #self.list_output[position] = self.s
-        #return self.list_output
-        
-        # BREAK BREAK BREAK
-        
-        #self.list_output.reverse()
-        #self.output = self.list_output
-        
-        
-        #print number_button
-        #self.old_s = self.s
-        
-        #self.s = "%s" % number_button
-        
-        #self.list_output = list(self.output)
-        
-        #self.list_output[4] = self.s
-        #self.list_output[self.list_output.index(self.old_s)] = self.old_s
-        #print self.list_output[4]
-        
-        #print self.old_s
-        #print self.list_output
-        
-        #return self.list_output
-        
-                
-    def how_many_times():
-        
-        return len(self.count)
-        
-        
-        
-        #try a list with .split
-        # try counting how many times click method is called and then 
-        # using that somehow to determine n in the click method
-        
-        
-        #for i in range(1, len(output)):
-            
-         #   output = output.replace(output[len(output)-i], s)
-
-          #  self.textvar.set(output)
-           # break
+      
       
     
 if __name__ == "__main__":
