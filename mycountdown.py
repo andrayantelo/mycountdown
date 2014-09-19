@@ -174,7 +174,7 @@ class App(object):
             self.output = ''.join(list_output)
             
         elif how_many_clicks > 4:
-            print "this is working"
+            
             del self.click_list[:-1]
             
             list_output = ['0','0','0','0']
@@ -187,7 +187,7 @@ class App(object):
                                     list_output[3])
         
         self.textvar.set(list_output)
-        #self.label = tk.Label(textvariable=self.textvar, font=16).grid(row=0, columnspan=6)
+        
         print list_output
         
         return self.output
