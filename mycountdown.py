@@ -81,6 +81,7 @@ def no_newline_print(text):
 class App(object):
     
     def __init__(self):
+        self.mytimer = Mycountdown(5, 25)
         self.root = tk.Tk()
         self.root.title("My Countdown")
         self.textvar = tk.StringVar()
@@ -88,7 +89,7 @@ class App(object):
         self.count = []
         self.label = tk.Label(textvariable=self.textvar, font=16).grid(row=0, columnspan=6)
         self.start_button = tk.Button(self.root, text="START", fg="green",
-                                      command=self.start).grid(row=1, column=0, 
+                                      command=self.start(5)).grid(row=1, column=0, 
                                       sticky=tk.E)
         self.reset_button = tk.Button(self.root, text="RESET", fg="yellow",
                                       command=self.reset, width=5).grid(row=1,
@@ -119,7 +120,7 @@ class App(object):
             if n == 9:
                 column = 1
         
-        self.mytimer = Mycountdown(5, 25)
+        
         self.click_list = []
         self.output = "0000"
         
@@ -153,15 +154,14 @@ class App(object):
         return self.mytimer.reset_case
         
             
-    def start(self):
+    def start(self, amount):
         
-        self.mytimer.start_timer(5)
+        self.mytimer.start_timer(amount)
         self.gui_countdown()
         
     def click(self, number_button, count):
      
         self.click_list.append(number_button)
-
         
         how_many_clicks = len(self.click_list)
         print how_many_clicks
@@ -181,16 +181,13 @@ class App(object):
             
             list_output =  list_output[:-len(self.click_list)] + self.click_list
             self.output = ''.join(list_output)
-            print list_output
         
         list_output = "%s%s:%s%s" %(list_output[0],list_output[1],list_output[2],
                                     list_output[3])
         
         self.textvar.set(list_output)
         
-        print list_output
-        
-        return self.output
+        #return self.output
         
       
       
