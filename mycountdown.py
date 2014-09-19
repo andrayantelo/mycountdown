@@ -165,22 +165,25 @@ class App(object):
         
         how_many_clicks = len(self.click_list)
         print how_many_clicks
-        if how_many_clicks < 4:
+       
+        if how_many_clicks <= 4:
             
             list_output = list(self.output)
         
             list_output = list_output[:-how_many_clicks] + self.click_list
             self.output = ''.join(list_output)
-            print list_output
             
         elif how_many_clicks > 4:
+            print "this is working"
+            del self.click_list[:-1]
+            print "this is the list %s" % self.click_list
+            list_output = ['0','0','0','0']
             
-            list_output = []
-            list_output =  list_output[:-how_many_clicks] + self.click_list
+            list_output =  list_output[:-len(self.click_list)] + self.click_list
             self.output = ''.join(list_output)
             print list_output
         
-        print self.output
+        print ''.join(list_output)
         
         
         return self.output
