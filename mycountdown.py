@@ -176,15 +176,17 @@ class App(object):
         elif how_many_clicks > 4:
             print "this is working"
             del self.click_list[:-1]
-            print "this is the list %s" % self.click_list
+            
             list_output = ['0','0','0','0']
             
             list_output =  list_output[:-len(self.click_list)] + self.click_list
             self.output = ''.join(list_output)
             print list_output
         
-        print ''.join(list_output)
+        list_output = "%s%s:%s%s" %(list_output[0],list_output[1],list_output[2],
+                                    list_output[3])
         
+        print list_output
         
         return self.output
         
