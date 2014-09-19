@@ -186,6 +186,8 @@ class App(object):
         list_output = "%s%s:%s%s" %(list_output[0],list_output[1],list_output[2],
                                     list_output[3])
         
+        self.textvar.set(list_output)
+        #self.label = tk.Label(textvariable=self.textvar, font=16).grid(row=0, columnspan=6)
         print list_output
         
         return self.output
