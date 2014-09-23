@@ -188,8 +188,7 @@ class App(object):
         minutes = list_output[0] + list_output[1]
         seconds = list_output[2] + list_output[3]
         
-        print "%s minutes" % minutes
-        print "%s seconds" % seconds
+        actual_seconds = (int(minutes) * 60) + int(seconds)
         
         self.output = ''.join(list_output)
         list_output = "%s%s:%s%s" %(list_output[0],list_output[1],list_output[2],
@@ -197,7 +196,7 @@ class App(object):
         
         self.textvar.set(list_output)
         
-        
+        return actual_seconds
         
     def retrieve_input(self):
         print self.click.list_output
