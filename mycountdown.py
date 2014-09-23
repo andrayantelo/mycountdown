@@ -177,12 +177,10 @@ class App(object):
             
             del self.click_list[:-1]
             
-            list_output = ['0','0','0','0']
+            list_output = list(self.output)
             
             list_output =  list_output[:-len(self.click_list)] + self.click_list
             
-        
-        self.output = ''.join(list_output)
         
         self.list_output = "%s%s:%s%s" %(list_output[0],list_output[1],list_output[2],
                                     list_output[3])
