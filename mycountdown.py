@@ -89,7 +89,7 @@ class App(object):
         self.count = []
         self.label = tk.Label(textvariable=self.textvar, font=16).grid(row=0, columnspan=6)
         self.start_button = tk.Button(self.root, text="START", fg="green",
-                                      command=self.retrieve_input).grid(row=1, column=0, 
+                                      command=self.compute_actual_seconds).grid(row=1, column=0, 
                                       sticky=tk.E)
         self.reset_button = tk.Button(self.root, text="RESET", fg="yellow",
                                       command=self.reset, width=5).grid(row=1,
@@ -123,6 +123,7 @@ class App(object):
         
         self.click_list = []
         self.output = "0000"
+        self.actual_seconds = 0
         
        
         
@@ -164,7 +165,6 @@ class App(object):
         self.click_list.append(number_button)
         
         how_many_clicks = len(self.click_list)
-        print how_many_clicks
        
         if how_many_clicks <= 4:
             
@@ -179,28 +179,29 @@ class App(object):
             
             list_output = ['0','0','0','0']
             
-            minutes = list_output[1] + list_output[2]
-            print minutes
-            
             list_output =  list_output[:-len(self.click_list)] + self.click_list
             
         
-        minutes = list_output[0] + list_output[1]
-        seconds = list_output[2] + list_output[3]
-        
-        actual_seconds = (int(minutes) * 60) + int(seconds)
-        
         self.output = ''.join(list_output)
-        list_output = "%s%s:%s%s" %(list_output[0],list_output[1],list_output[2],
+        
+        self.list_output = "%s%s:%s%s" %(list_output[0],list_output[1],list_output[2],
                                     list_output[3])
         
-        self.textvar.set(list_output)
+        self.textvar.set(self.list_output)
         
-        return actual_seconds
+        return self.list_output
         
-    def retrieve_input(self):
-        print self.click.list_output
+    def compute_actual_seconds(self):
         
+        self.list_output = list(self.list_output)
+        self.list_output.remove(":")
+        
+        minutes = self.list_output[0] + self.list_output[1]
+        seconds = self.list_output[2] + self.list_output[3]
+        
+        self.actual_seconds = (int(minutes) * 60) + int(seconds)
+        
+        print self.actual_seconds
       
       
     
