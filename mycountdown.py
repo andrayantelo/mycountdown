@@ -89,7 +89,7 @@ class App(object):
         self.count = []
         self.label = tk.Label(textvariable=self.textvar, font=16).grid(row=0, columnspan=6)
         self.start_button = tk.Button(self.root, text="START", fg="green",
-                                      command=self.start(5)).grid(row=1, column=0, 
+                                      command=self.retrieve_input).grid(row=1, column=0, 
                                       sticky=tk.E)
         self.reset_button = tk.Button(self.root, text="RESET", fg="yellow",
                                       command=self.reset, width=5).grid(row=1,
@@ -153,10 +153,10 @@ class App(object):
         print self.mytimer.is_time_expired()
         return self.mytimer.reset_case
         
-            
-    def start(self, amount):
         
-        self.mytimer.start_timer(amount)
+    def start(self):
+        
+        self.mytimer.start_timer(5)
         self.gui_countdown()
         
     def click(self, number_button, count):
@@ -171,7 +171,7 @@ class App(object):
             list_output = list(self.output)
         
             list_output = list_output[:-how_many_clicks] + self.click_list
-            self.output = ''.join(list_output)
+            
             
         elif how_many_clicks > 4:
             
@@ -179,15 +179,28 @@ class App(object):
             
             list_output = ['0','0','0','0']
             
+            minutes = list_output[1] + list_output[2]
+            print minutes
+            
             list_output =  list_output[:-len(self.click_list)] + self.click_list
-            self.output = ''.join(list_output)
+            
         
+        minutes = list_output[0] + list_output[1]
+        seconds = list_output[2] + list_output[3]
+        
+        print "%s minutes" % minutes
+        print "%s seconds" % seconds
+        
+        self.output = ''.join(list_output)
         list_output = "%s%s:%s%s" %(list_output[0],list_output[1],list_output[2],
                                     list_output[3])
         
         self.textvar.set(list_output)
         
-        #return self.output
+        
+        
+    def retrieve_input(self):
+        print self.click.list_output
         
       
       
