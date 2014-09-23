@@ -89,7 +89,7 @@ class App(object):
         self.count = []
         self.label = tk.Label(textvariable=self.textvar, font=16).grid(row=0, columnspan=6)
         self.start_button = tk.Button(self.root, text="START", fg="green",
-                                      command=self.start).grid(row=1, column=0, 
+                                      command=self.compute_actual_seconds).grid(row=1, column=0, 
                                       sticky=tk.E)
         self.reset_button = tk.Button(self.root, text="RESET", fg="yellow",
                                       command=self.reset, width=5).grid(row=1,
@@ -193,12 +193,12 @@ class App(object):
         seconds = self.list_output[2] + self.list_output[3]
         
         self.actual_seconds = float((int(minutes) * 60) + int(seconds))
-        
+        print self.actual_seconds
         return self.actual_seconds
         
     def start(self):
         
-        self.mytimer.start_timer(self.compute_actual_seconds)
+        self.mytimer.start_timer(5)
         self.gui_countdown()
       
       
