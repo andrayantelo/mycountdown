@@ -198,7 +198,7 @@ class App(object):
         
     def start(self):
         
-        self.mytimer.start_timer(self.compute_actual_seconds)
+        self.mytimer.start_timer(self.compute_actual_seconds())
         self.gui_countdown()
       
       
