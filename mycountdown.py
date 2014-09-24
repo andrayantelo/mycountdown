@@ -143,7 +143,9 @@ class App(object):
             print self.mytimer.reset_case
         
         if not self.mytimer.reset_case:
-            self.textvar.set("00:00")
+            minutes, seconds = divmod(self.actual_seconds, 60)
+            self.actual_seconds = "%02d:%02d" %(minutes, seconds)
+            self.textvar.set(self.actual_seconds)
         
         if not self.mytimer.reset_case and self.mytimer.is_time_expired():
             self.textvar.set("00:00")
