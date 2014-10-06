@@ -87,16 +87,18 @@ class App(object):
         self.textvar = tk.StringVar()
         self.textvar.set("00:00")
         self.count = []
-        self.label = tk.Label(textvariable=self.textvar, font=16).grid(row=0, columnspan=6)
-        self.start_button = tk.Button(self.root, text="START", fg="green",
-                                      command=self.start).grid(row=1, column=0, 
-                                      sticky=tk.E)
+        play = PhotoImage(file="C:/andrea/Documents/projects/mycountdown/playbutton.png")
+        self.label = tk.Label(textvariable=self.textvar, font=16).grid(row=0, columnspan=8)
+        self.start_button = tk.Button(self.root, image=play, fg="green",
+                                      command=self.start, width=5).grid(row=1, column=1)
+        self.pause_button = tk.Button(self.root, text="PAUSE", fg="blue",
+                                      command=self.pause, width=5).grid(row=1, column=2)
         self.reset_button = tk.Button(self.root, text="RESET", fg="yellow",
-                                      command=self.reset, width=5).grid(row=1,
-                                      column=1)
+                                      command=self.reset, width=5).grid(row=2,
+                                      column=2)
         self.quit_button = tk.Button(self.root, text="QUIT", fg="red",
                                       command=self.root.quit,width=5).grid(
-                                      row=1, column=2, sticky=tk.E)
+                                      row=2, column=3)
         lf = tk.LabelFrame(self.root, text="Keypad", bd=3, 
                            relief=tk.RIDGE).grid(columnspan=3)
         self.button_list = [
@@ -105,7 +107,7 @@ class App(object):
         '7','8','9',
         '0']
         row = 4
-        column = 0
+        column = 1
         n = 0
         number_button = list(range(len(self.button_list)))
         for label in self.button_list:
@@ -114,11 +116,11 @@ class App(object):
             number_button[n].grid(row=row, column=column)
             n += 1
             column += 1
-            if column > 2:
-                column = 0
+            if column > 3:
+                column = 1
                 row +=1
             if n == 9:
-                column = 1
+                column = 2
         
         
         self.click_list = []
@@ -232,7 +234,7 @@ class App(object):
         self.gui_countdown()
         
     def pause(self):
-        pass
+        self.textvar.set(self.list_output)
       
       
     
