@@ -89,17 +89,19 @@ class App(object):
         this_directory = os.path.dirname(this_file)
         image_file = os.path.join(this_directory, 'playbutton.gif')
         self.label = tk.Label(textvariable=self.textvar, font=16).grid(row=0, columnspan=8)
-        self.start_button = tk.Button(self.root, tk.PhotoImage(image_file),
-                                      command=self.start, width=5).grid(row=1, column=1)
+        self.start_button = tk.Button(self.root, image=image,
+                                      command=self.start, width=5)
+        self.start_button.grid(row=1, column=1)
         self.start_button.img = image
         self.pause_button = tk.Button(self.root, text="PAUSE", fg="blue",
-                                      command=self.pause, width=5).grid(row=1, column=2)
+                                      command=self.pause, width=5)
+        self.pause_button.grid(row=1, column=2)
         self.reset_button = tk.Button(self.root, text="RESET", fg="yellow",
-                                      command=self.reset, width=5).grid(row=2,
-                                      column=2)
+                                      command=self.reset, width=5)
+        self.reset_button.grid(row=2, column=2)
         self.quit_button = tk.Button(self.root, text="QUIT", fg="red",
-                                      command=self.root.quit,width=5).grid(
-                                      row=2, column=3)
+                                      command=self.root.quit,width=5)
+        self.quit_button.grid(row=2, column=3)
         lf = tk.LabelFrame(self.root, text="Keypad", bd=3, 
                            relief=tk.RIDGE).grid(columnspan=3)
         self.button_list = [
