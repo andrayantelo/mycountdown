@@ -89,8 +89,9 @@ class App(object):
         this_file = __file__
         this_directory = os.path.dirname(this_file)
         image_file = os.path.join(this_directory, 'playbutton.png')
+        print image_file
         self.label = tk.Label(textvariable=self.textvar, font=16).grid(row=0, columnspan=8)
-        self.start_button = tk.Button(self.root, text="START", fg="green",
+        self.start_button = tk.Button(self.root, tk.PhotoImage(image_file),
                                       command=self.start, width=5).grid(row=1, column=1)
         self.pause_button = tk.Button(self.root, text="PAUSE", fg="blue",
                                       command=self.pause, width=5).grid(row=1, column=2)
@@ -240,10 +241,11 @@ class App(object):
       
     
 if __name__ == "__main__":
-    print image_file
+    
     app = App()
     #app.start()
     app.root.mainloop()
+    
     
     
 
