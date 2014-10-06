@@ -157,6 +157,7 @@ class App(object):
         print self.mytimer.reset_case
         print self.mytimer.is_time_expired()
         return self.mytimer.reset_case
+        #figuring this out
         
         
     def click(self, number_button, count):
