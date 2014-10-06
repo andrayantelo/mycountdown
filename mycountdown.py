@@ -6,7 +6,7 @@ import pygame
 from functools import partial
 import string
 import re
-#import os
+import tkFont
 
 
 class Mycountdown(object):
@@ -85,24 +85,18 @@ class App(object):
         self.textvar = tk.StringVar()
         self.textvar.set("00:00")
         self.count = []
-        #this_file = __file__
-        #this_directory = os.path.dirname(this_file)
-        #image_file = os.path.join(this_directory, 'playbutton.gif')
-        #image = tk.PhotoImage(file=image_file)
+        
         self.label = tk.Label(textvariable=self.textvar, font=16).grid(row=0, columnspan=8)
-        self.start_button = tk.Button(self.root, text="START", fg="green",
-                                      command=self.start, width=5)
+        self.start_button = tk.Button(self.root, text="START", fg="blue",
+                                      command=self.toggle_button, width=5)
         self.start_button.grid(row=1, column=1)
-        #self.start_button.img = image
-        self.pause_button = tk.Button(self.root, text="PAUSE", fg="blue",
-                                      command=self.pause, width=5)
-        self.pause_button.grid(row=1, column=2)
+        #self.start_button.pack(pady=5)
         self.reset_button = tk.Button(self.root, text="RESET", fg="yellow",
                                       command=self.reset, width=5)
-        self.reset_button.grid(row=2, column=2)
+        self.reset_button.grid(row=1, column=2)
         self.quit_button = tk.Button(self.root, text="QUIT", fg="red",
                                       command=self.root.quit,width=5)
-        self.quit_button.grid(row=2, column=3)
+        self.quit_button.grid(row=1, column=3)
         lf = tk.LabelFrame(self.root, text="Keypad", bd=3, 
                            relief=tk.RIDGE).grid(columnspan=3)
         self.button_list = [
@@ -238,7 +232,13 @@ class App(object):
         self.gui_countdown()
         
     def pause(self):
-        self.textvar.set(self.list_output)
+        print "the pause button has been pressed"
+        
+    def toggle_button(self):
+        if self.start_button.config('text')[-1] == 'START':
+            self.start_button.config(text='PAUSE')
+        else:
+            self.start_button.config(text='START', command=self.start)
       
       
     
