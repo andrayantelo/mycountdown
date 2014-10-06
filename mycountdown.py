@@ -87,11 +87,12 @@ class App(object):
         self.textvar.set("00:00")
         self.count = []
         image = Image.open("playbutton.png")
-        photo = Image.Tk.PhotoImage(image)
+        photo = ImageTk.PhotoImage(image)
         
         self.label = tk.Label(textvariable=self.textvar, font=16).grid(row=0, columnspan=8)
         self.start_button = tk.Button(self.root, image=photo,
                                       command=self.start, width=5).grid(row=1, column=1)
+        self.start_button.img = image
         self.pause_button = tk.Button(self.root, text="PAUSE", fg="blue",
                                       command=self.pause, width=5).grid(row=1, column=2)
         self.reset_button = tk.Button(self.root, text="RESET", fg="yellow",
