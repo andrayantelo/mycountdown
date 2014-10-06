@@ -6,8 +6,7 @@ import pygame
 from functools import partial
 import string
 import re
-from PIL import Image, ImageTk
-
+import os
 
 
 class Mycountdown(object):
@@ -86,11 +85,11 @@ class App(object):
         self.textvar = tk.StringVar()
         self.textvar.set("00:00")
         self.count = []
-        image = Image.open("playbutton.png")
-        photo = ImageTk.PhotoImage(image)
-        
+        this_file = __file__
+        this_directory = os.path.dirname(this_file)
+        image_file = os.path.join(this_directory, 'playbutton.gif')
         self.label = tk.Label(textvariable=self.textvar, font=16).grid(row=0, columnspan=8)
-        self.start_button = tk.Button(self.root, image=photo,
+        self.start_button = tk.Button(self.root, tk.PhotoImage(image_file),
                                       command=self.start, width=5).grid(row=1, column=1)
         self.start_button.img = image
         self.pause_button = tk.Button(self.root, text="PAUSE", fg="blue",
