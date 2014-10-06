@@ -133,7 +133,7 @@ class App(object):
         
         # if True and False
         if self.mytimer.reset_case and not self.mytimer.is_time_expired():
-            print "this one is working"
+            print "reset_case TRUE time_expired FALSE first"
             output = self.mytimer.format_time(self.mytimer.time_left())
             print repr(output)
             self.textvar.set(output)
@@ -141,7 +141,7 @@ class App(object):
         
         # if True
         elif self.mytimer.is_time_expired():
-            print "the second one is working"
+            print "time_expired TRUE second"
             self.textvar.set("Time's up!")
             self.mytimer.play_alert()
             self.reset_click_list.append('1')
@@ -149,7 +149,7 @@ class App(object):
         
         # if False
         elif not self.mytimer.reset_case:
-            print "the third one is working"
+            print "reset_case FALSE third"
             print len(self.reset_click_list)
             self.list_output = "%s%s:%s%s" %(self.list_output[0], 
                                              self.list_output[1],
@@ -163,7 +163,7 @@ class App(object):
         
         # if False and True
         elif not self.mytimer.reset_case and self.mytimer.is_time_expired():
-            print "the fourth one is working"
+            print "reset_case FALSE time_expired TRUE fourth"
             self.textvar.set("00:00")
             
         else: 
