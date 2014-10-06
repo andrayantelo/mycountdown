@@ -224,6 +224,9 @@ class App(object):
         
         self.mytimer.start_timer(self.compute_actual_seconds())
         self.gui_countdown()
+        
+    def pause(self):
+        pass
       
       
     
