@@ -131,20 +131,23 @@ class App(object):
         
     def gui_countdown(self):
         
-        
-        if not self.mytimer.is_time_expired() and self.mytimer.reset_case:
+        # if True and False
+        if self.mytimer.reset_case and not self.mytimer.is_time_expired():
             print "this one is working"
             output = self.mytimer.format_time(self.mytimer.time_left())
             print repr(output)
             self.textvar.set(output)
             self.root.after(1000, self.gui_countdown)
         
+        # if True
         elif self.mytimer.is_time_expired():
             print "the second one is working"
             self.textvar.set("Time's up!")
             self.mytimer.play_alert()
+            self.reset_click_list.append('1')
             print self.mytimer.reset_case
         
+        # if False
         elif not self.mytimer.reset_case:
             print "the third one is working"
             print len(self.reset_click_list)
@@ -158,9 +161,14 @@ class App(object):
             
             return self.mytimer.reset_case
         
+        # if False and True
         elif not self.mytimer.reset_case and self.mytimer.is_time_expired():
             print "the fourth one is working"
             self.textvar.set("00:00")
+            
+        else: 
+            self.textvar.set(self.list_output)
+            
             
     def reset(self):
         self.reset_click_list.append('1')
@@ -184,7 +192,6 @@ class App(object):
         how_many_clicks = len(self.click_list)
        
         if how_many_clicks <= 4:
-            # self.list_output instead of list_output
             self.list_output = list(self.output)
         
             self.list_output = self.list_output[:-how_many_clicks] + self.click_list
@@ -193,7 +200,6 @@ class App(object):
         elif how_many_clicks > 4:
             
             del self.click_list[:-1]
-            # self.list_output instead of list_output
             self.list_output = list(self.output)
             
             self.list_output =  self.list_output[:-len(self.click_list)] + self.click_list
