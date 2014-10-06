@@ -131,25 +131,28 @@ class App(object):
         
         
         if not self.mytimer.is_time_expired() and self.mytimer.reset_case:
+            print "this one is working"
             output = self.mytimer.format_time(self.mytimer.time_left())
             print repr(output)
-            print self.mytimer.reset_case
             self.textvar.set(output)
             self.root.after(1000, self.gui_countdown)
         
-        if self.mytimer.is_time_expired():
+        elif self.mytimer.is_time_expired():
+            print "the second one is working"
             self.textvar.set("Time's up!")
             self.mytimer.play_alert()
             print self.mytimer.reset_case
         
-        if not self.mytimer.reset_case:
+        elif not self.mytimer.reset_case:
+            print "the third one is working"
             self.list_output = "%s%s:%s%s" %(self.list_output[0], 
                                              self.list_output[1],
                                              self.list_output[2],
                                              self.list_output[3])
             self.textvar.set(self.list_output)
         
-        if not self.mytimer.reset_case and self.mytimer.is_time_expired():
+        elif not self.mytimer.reset_case and self.mytimer.is_time_expired():
+            print "the fourth one is working"
             self.textvar.set("00:00")
             
     def reset(self):
@@ -190,6 +193,8 @@ class App(object):
         return self.list_output
         
     def compute_actual_seconds(self):
+        #want to raise an error here if App object has no attribute
+        #'list_output' raise error 'no numbers were input' or something
         
         self.list_output = list(self.list_output)
         self.list_output.remove(":")
