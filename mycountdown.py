@@ -207,9 +207,9 @@ class App(object):
         return self.list_output
         
     def compute_actual_seconds(self):
-        #want to raise an error here if App object has no attribute
-        #'list_output' raise error 'no numbers were input' or something
         
+        if self.list_output == "00:00":
+            raise ValueError("Please input a time greater than 00:00")
         self.list_output = list(self.list_output)
         self.list_output.remove(":")
         
