@@ -6,7 +6,7 @@ import pygame
 from functools import partial
 import string
 import re
-import os
+from PIL import Image, ImageTk
 
 
 
@@ -86,12 +86,11 @@ class App(object):
         self.textvar = tk.StringVar()
         self.textvar.set("00:00")
         self.count = []
-        this_file = __file__
-        this_directory = os.path.dirname(this_file)
-        image_file = os.path.join(this_directory, 'playbutton.png')
-        print image_file
+        image = Image.open("playbutton.png")
+        photo = Image.Tk.PhotoImage(image)
+        
         self.label = tk.Label(textvariable=self.textvar, font=16).grid(row=0, columnspan=8)
-        self.start_button = tk.Button(self.root, tk.PhotoImage(image_file),
+        self.start_button = tk.Button(self.root, image=photo,
                                       command=self.start, width=5).grid(row=1, column=1)
         self.pause_button = tk.Button(self.root, text="PAUSE", fg="blue",
                                       command=self.pause, width=5).grid(row=1, column=2)
