@@ -6,8 +6,7 @@ import pygame
 from functools import partial
 import string
 import re
-
-
+import os
 
 
 
@@ -87,9 +86,11 @@ class App(object):
         self.textvar = tk.StringVar()
         self.textvar.set("00:00")
         self.count = []
-        play = PhotoImage(file="C:/andrea/Documents/projects/mycountdown/playbutton.png")
+        this_file = __file__
+        this_directory = os.path.dirname(this_file)
+        image_file = os.path.join(this_directory, 'playbutton.png')
         self.label = tk.Label(textvariable=self.textvar, font=16).grid(row=0, columnspan=8)
-        self.start_button = tk.Button(self.root, image=play, fg="green",
+        self.start_button = tk.Button(self.root, text="START", fg="green",
                                       command=self.start, width=5).grid(row=1, column=1)
         self.pause_button = tk.Button(self.root, text="PAUSE", fg="blue",
                                       command=self.pause, width=5).grid(row=1, column=2)
@@ -239,9 +240,11 @@ class App(object):
       
     
 if __name__ == "__main__":
+    print image_file
     app = App()
     #app.start()
     app.root.mainloop()
+    
     
 
 # want to figure out a way to pause it
