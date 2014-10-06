@@ -124,6 +124,8 @@ class App(object):
         self.click_list = []
         self.output = "0000"
         self.actual_seconds = 0
+        self.list_output = "00:00"
+        self.reset_click_list = []
         
        
         
@@ -145,22 +147,34 @@ class App(object):
         
         elif not self.mytimer.reset_case:
             print "the third one is working"
+            print len(self.reset_click_list)
             self.list_output = "%s%s:%s%s" %(self.list_output[0], 
                                              self.list_output[1],
                                              self.list_output[2],
                                              self.list_output[3])
             self.textvar.set(self.list_output)
+            
+            self.mytimer.reset_case = True
+            
+            return self.mytimer.reset_case
         
         elif not self.mytimer.reset_case and self.mytimer.is_time_expired():
             print "the fourth one is working"
             self.textvar.set("00:00")
             
     def reset(self):
-        self.mytimer.reset_case = False
-        print self.mytimer.reset_case
-        print self.mytimer.is_time_expired()
+        self.reset_click_list.append('1')
+        print len(self.reset_click_list)
+        if len(self.reset_click_list) == 2:
+            self.reset_click_list = []
+            self.click_list = []
+            self.list_output = "00:00"
+            self.textvar.set(self.list_output)
+            self.mytimer.reset_case = True
+        else:
+            self.mytimer.reset_case = False
         return self.mytimer.reset_case
-        #figuring this out
+        
         
         
     def click(self, number_button, count):
@@ -170,23 +184,23 @@ class App(object):
         how_many_clicks = len(self.click_list)
        
         if how_many_clicks <= 4:
-            
-            list_output = list(self.output)
+            # self.list_output instead of list_output
+            self.list_output = list(self.output)
         
-            list_output = list_output[:-how_many_clicks] + self.click_list
+            self.list_output = self.list_output[:-how_many_clicks] + self.click_list
             
             
         elif how_many_clicks > 4:
             
             del self.click_list[:-1]
+            # self.list_output instead of list_output
+            self.list_output = list(self.output)
             
-            list_output = list(self.output)
-            
-            list_output =  list_output[:-len(self.click_list)] + self.click_list
+            self.list_output =  self.list_output[:-len(self.click_list)] + self.click_list
             
         
-        self.list_output = "%s%s:%s%s" %(list_output[0],list_output[1],list_output[2],
-                                    list_output[3])
+        self.list_output = "%s%s:%s%s" %(self.list_output[0],self.list_output[1],self.list_output[2],
+                                    self.list_output[3])
         print self.list_output
         self.textvar.set(self.list_output)
         
