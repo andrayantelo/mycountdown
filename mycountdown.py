@@ -133,7 +133,7 @@ class App(object):
     def gui_countdown(self):
         
         # if True and False
-        if self.mytimer.reset_case and not self.mytimer.is_time_expired():
+        if self.mytimer.reset_case and not self.mytimer.is_time_expired() and not self.mytimer.pause_case:
             print "reset_case TRUE time_expired FALSE first"
             output = self.mytimer.format_time(self.mytimer.time_left())
             print repr(output)
