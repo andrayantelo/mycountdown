@@ -25,6 +25,7 @@ class Mycountdown(object):
         self.down_time = down_time * 60
         self.done_with_work = time.time()
         self.reset_case = True
+        self.pause_case = False
        
         
     def start_timer(self, done_time):
@@ -166,8 +167,9 @@ class App(object):
             print "reset_case FALSE time_expired TRUE fourth"
             self.textvar.set("00:00")
             
-        else: 
-            self.textvar.set(self.list_output)
+        elif self.mytimer.pause_case: 
+            output = self.mytimer.format_time(self.mytimer.time_left())
+            self.textvar.set(output)
             
             
     def reset(self):
@@ -234,11 +236,10 @@ class App(object):
     def pause(self):
         print "the pause button has been pressed"
         print "this is the current output %s" % self.mytimer.format_time(self.mytimer.time_left())
-        output = self.mytimer.format_time(self.mytimer.time_left())
-        self.textvar.set(output)
-        self.mytimer.reset_case = True
         
-        print self.mytimer.is_time_expired()
+        self.mytimer.pause_case = True
+        
+        return self.mytimer.pause_case
         
     def toggle_button(self):
         if self.start_button.config('text')[-1] == 'START':
