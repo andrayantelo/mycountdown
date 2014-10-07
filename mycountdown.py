@@ -233,13 +233,20 @@ class App(object):
         
     def pause(self):
         print "the pause button has been pressed"
+        print "this is the current output %s" % self.mytimer.format_time(self.mytimer.time_left())
+        output = self.mytimer.format_time(self.mytimer.time_left())
+        self.textvar.set(output)
+        self.mytimer.reset_case = True
+        
+        print self.mytimer.is_time_expired()
         
     def toggle_button(self):
         if self.start_button.config('text')[-1] == 'START':
             self.start_button.config(text='PAUSE')
+            self.start()
         else:
             self.start_button.config(text='START', command=self.start)
-      
+            self.pause()
       
     
 if __name__ == "__main__":
