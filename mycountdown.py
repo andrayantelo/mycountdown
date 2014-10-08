@@ -151,16 +151,16 @@ class App(object):
         # if False
         elif not self.mytimer.reset_case:
             print "reset_case FALSE third"
-            print len(self.reset_click_list)
-            self.list_output = "%s%s:%s%s" %(self.list_output[0], 
-                                             self.list_output[1],
-                                             self.list_output[2],
-                                             self.list_output[3])
-            self.textvar.set(self.list_output)
+            #print len(self.reset_click_list)
+            #self.list_output = "%s%s:%s%s" %(self.list_output[0], 
+            #                                 self.list_output[1],
+            #                                 self.list_output[2],
+            #                                 self.list_output[3])
+            #self.textvar.set(self.list_output)
             
-            self.mytimer.reset_case = True
+            #self.mytimer.reset_case = True
             
-            return self.mytimer.reset_case
+            #return self.mytimer.reset_case
         
         # if False and True
         elif not self.mytimer.reset_case and self.mytimer.is_time_expired():
@@ -182,7 +182,15 @@ class App(object):
             self.textvar.set(self.list_output)
             self.mytimer.reset_case = True
         else:
+            print len(self.reset_click_list)
+            self.list_output = "%s%s:%s%s" %(self.list_output[0], 
+                                             self.list_output[1],
+                                             self.list_output[2],
+                                             self.list_output[3])
+            self.textvar.set(self.list_output)
+            
             self.mytimer.reset_case = False
+            
         return self.mytimer.reset_case
         
         
@@ -219,13 +227,14 @@ class App(object):
         if self.list_output == "00:00":
             raise ValueError("Please input a time greater than 00:00")
         self.list_output = list(self.list_output)
-        self.list_output.remove(":")
+        if ":" in self.list_output:
+            self.list_output.remove(":")
         
         minutes = self.list_output[0] + self.list_output[1]
         seconds = self.list_output[2] + self.list_output[3]
         
         self.actual_seconds = float((int(minutes) * 60) + int(seconds))
-        #print self.actual_seconds
+        
         return self.actual_seconds
         
     def start(self):
