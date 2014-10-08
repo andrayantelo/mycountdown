@@ -151,16 +151,6 @@ class App(object):
         # if False
         elif not self.mytimer.reset_case:
             print "reset_case FALSE third"
-            #print len(self.reset_click_list)
-            #self.list_output = "%s%s:%s%s" %(self.list_output[0], 
-            #                                 self.list_output[1],
-            #                                 self.list_output[2],
-            #                                 self.list_output[3])
-            #self.textvar.set(self.list_output)
-            
-            #self.mytimer.reset_case = True
-            
-            #return self.mytimer.reset_case
         
         # if False and True
         elif not self.mytimer.reset_case and self.mytimer.is_time_expired():
@@ -181,6 +171,7 @@ class App(object):
             self.list_output = "00:00"
             self.textvar.set(self.list_output)
             self.mytimer.reset_case = True
+            self.mytimer.pause_case = False
         else:
             print len(self.reset_click_list)
             self.list_output = "%s%s:%s%s" %(self.list_output[0], 
