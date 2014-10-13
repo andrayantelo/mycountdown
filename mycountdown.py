@@ -51,7 +51,7 @@ class Mycountdown(object):
         return output
         
     def is_time_expired(self):
-    
+        """ Return the time left to count down."""
         return self.time_left() < 0
         
 
@@ -66,9 +66,11 @@ class Mycountdown(object):
         
     def pause_timer(self):
         """Pauses the timer"""
+        pause_click_time = time.time()
         
-            
-        
+    def reset(self):
+        """Resets the timer"""
+        pass
         
 def no_newline_print(text):
     sys.stdout.write(text)
@@ -123,9 +125,9 @@ class App(object):
         
         
         self.click_list = []
-        self.output = "0000"
+        self.output = "00:00"
         self.actual_seconds = 0
-        self.list_output = "00:00"
+        self.list_output = []
         self.reset_click_list = []
         
        
@@ -194,6 +196,8 @@ class App(object):
        
         if how_many_clicks <= 4:
             self.list_output = list(self.output)
+            if ":" in self.list_output:
+                self.list_output.remove(":")
         
             self.list_output = self.list_output[:-how_many_clicks] + self.click_list
             
@@ -202,22 +206,24 @@ class App(object):
             
             del self.click_list[:-1]
             self.list_output = list(self.output)
+            if ":" in self.list_output:
+                self.list_output.remove(":")
             
             self.list_output =  self.list_output[:-len(self.click_list)] + self.click_list
             
         
-        self.list_output = "%s%s:%s%s" %(self.list_output[0],self.list_output[1],self.list_output[2],
+        self.output = "%s%s:%s%s" %(self.list_output[0],self.list_output[1],self.list_output[2],
                                     self.list_output[3])
-        print self.list_output
-        self.textvar.set(self.list_output)
+        print self.output
+        self.textvar.set(self.output)
         
-        return self.list_output
+        return self.output
         
     def compute_actual_seconds(self):
         
-        if self.list_output == "00:00":
+        if self.output == "00:00":
             raise ValueError("Please input a time greater than 00:00")
-        self.list_output = list(self.list_output)
+        self.list_output = list(self.output)
         if ":" in self.list_output:
             self.list_output.remove(":")
         
