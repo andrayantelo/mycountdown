@@ -154,9 +154,12 @@ class App(object):
             self.mytimer.play_alert()
             self.reset_click_list.append('1')
 
+        elif self.reset_click_list == 2 and self.mytimer.is_time_expired():
+            self.list_output = "00:00"
+            self.textvar.set(self.list_output)
             
         elif self.mytimer.is_paused: 
-            self.output = self.mytimer.format_time(self.mytimer.time_left())
+            #self.output = self.mytimer.format_time(self.mytimer.time_left())
             self.textvar.set(self.output)
             
             
@@ -171,12 +174,16 @@ class App(object):
             self.mytimer.reset()
             self.mytimer.is_paused = False
         else:
+            if not self.mytimer.is_paused:
+                self.mytimer.is_paused = True
             print len(self.reset_click_list)
-            self.list_output = "%s%s:%s%s" %(self.list_output[0], 
+            self.output = "%s%s:%s%s" %(self.list_output[0], 
                                              self.list_output[1],
                                              self.list_output[2],
                                              self.list_output[3])
-            self.textvar.set(self.list_output)
+            self.textvar.set(self.output)
+            return self.output
+            
         
         
         
@@ -230,6 +237,8 @@ class App(object):
         
         self.mytimer.start_timer(self.compute_actual_seconds())
         self.gui_countdown()
+        self.reset_click_list = []
+        return self.reset_click_list
         
     def toggle_button(self, tog=[0]):
         tog[0] = not tog[0]
