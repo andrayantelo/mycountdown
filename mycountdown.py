@@ -143,15 +143,13 @@ class App(object):
         
         # if True and False and False
         if not self.mytimer.is_time_expired() and not self.mytimer.is_paused:
-            print "reset_case TRUE time_expired FALSE pause_case FALSE first"
             self.output = self.mytimer.format_time(self.mytimer.time_left())
-            print repr(self.output)
+            #print repr(self.output)
             self.textvar.set(self.output)
             self.root.after(1000, self.gui_countdown)
         
         # if True
         elif self.mytimer.is_time_expired():
-            print "time_expired TRUE second"
             self.textvar.set("Time's up!")
             self.mytimer.play_alert()
             self.reset_click_list.append('1')
@@ -208,7 +206,7 @@ class App(object):
         
         self.output = "%s%s:%s%s" %(self.list_output[0],self.list_output[1],self.list_output[2],
                                     self.list_output[3])
-        print self.output
+        #print self.output
         self.textvar.set(self.output)
         
         return self.output
@@ -237,12 +235,20 @@ class App(object):
         tog[0] = not tog[0]
         if tog[0]:
             self.start_button.config(text='PAUSE')
+            if self.mytimer.is_paused:
+                self.mytimer.toggle_pause_timer()
             self.start()
+            print "text says PAUSE, so we are on start"
+            print "is_paused should be false"
+            print self.mytimer.is_paused
             return self.output
             
         else:
             self.start_button.config(text='START')
             self.mytimer.toggle_pause_timer()
+            print "text says START, so we are on pause"
+            print "is_paused should be true"
+            print self.mytimer.is_paused
             return self.output
             
       
