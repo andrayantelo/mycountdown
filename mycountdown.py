@@ -137,6 +137,7 @@ class App(object):
         self.actual_seconds = 0
         self.list_output = []
         self.reset_click_list = []
+        self.tog = [0]
        
         
     def gui_countdown(self):
@@ -166,7 +167,7 @@ class App(object):
     def reset(self):
         self.reset_click_list.append('1')
         print len(self.reset_click_list)
-       
+        
         if len(self.reset_click_list) == 2:
             self.reset_click_list = []
             self.click_list = []
@@ -176,8 +177,8 @@ class App(object):
             self.mytimer.is_paused = False
         else:
             if not self.mytimer.is_paused:
-                self.mytimer.is_paused = True
-           
+                self.mytimer.toggle_pause_timer()
+            
             print len(self.reset_click_list)
             self.output = "%s%s:%s%s" %(self.list_output[0], 
                                              self.list_output[1],
@@ -185,6 +186,7 @@ class App(object):
                                              self.list_output[3])
             self.textvar.set(self.output)
             return self.output
+        return self.tog[0]
             
         
         
@@ -243,8 +245,8 @@ class App(object):
         return self.reset_click_list
         
     def toggle_button(self, tog=[0]):
-        tog[0] = not tog[0]
-        if tog[0]:
+        self.tog[0] = not self.tog[0]
+        if self.tog[0]:
             self.start_button.config(text='PAUSE')
             if self.mytimer.is_paused:
                 self.mytimer.toggle_pause_timer()
