@@ -166,6 +166,7 @@ class App(object):
     def reset(self):
         self.reset_click_list.append('1')
         print len(self.reset_click_list)
+       
         if len(self.reset_click_list) == 2:
             self.reset_click_list = []
             self.click_list = []
@@ -176,6 +177,7 @@ class App(object):
         else:
             if not self.mytimer.is_paused:
                 self.mytimer.is_paused = True
+           
             print len(self.reset_click_list)
             self.output = "%s%s:%s%s" %(self.list_output[0], 
                                              self.list_output[1],
