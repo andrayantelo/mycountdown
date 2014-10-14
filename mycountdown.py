@@ -31,7 +31,7 @@ class Mycountdown(object):
         
     def start_timer(self, done_time):
         """ Start the timer."""
-        done_time = done_time * 60
+        #done_time = done_time * 60
         self.start_time = time.time()
         self.done_with_work = self.start_time + done_time
         
@@ -137,17 +137,16 @@ class App(object):
         self.actual_seconds = 0
         self.list_output = []
         self.reset_click_list = []
-        
        
         
     def gui_countdown(self):
         
         # if True and False and False
-        if self.mytimer.reset_case and not self.mytimer.is_time_expired() and not self.mytimer.pause_case:
+        if not self.mytimer.is_time_expired() and not self.mytimer.is_paused:
             print "reset_case TRUE time_expired FALSE pause_case FALSE first"
-            output = self.mytimer.format_time(self.mytimer.time_left())
-            print repr(output)
-            self.textvar.set(output)
+            self.output = self.mytimer.format_time(self.mytimer.time_left())
+            print repr(self.output)
+            self.textvar.set(self.output)
             self.root.after(1000, self.gui_countdown)
         
         # if True
@@ -156,20 +155,11 @@ class App(object):
             self.textvar.set("Time's up!")
             self.mytimer.play_alert()
             self.reset_click_list.append('1')
-            print self.mytimer.reset_case
-        
-        # if False
-        elif not self.mytimer.reset_case:
-            print "reset_case FALSE third"
-        
-        # if False and True
-        elif not self.mytimer.reset_case and self.mytimer.is_time_expired():
-            print "reset_case FALSE time_expired TRUE fourth"
-            self.textvar.set("00:00")
+
             
-        elif self.mytimer.pause_case: 
-            output = self.mytimer.format_time(self.mytimer.time_left())
-            self.textvar.set(output)
+        elif self.mytimer.is_paused: 
+            self.output = self.mytimer.format_time(self.mytimer.time_left())
+            self.textvar.set(self.output)
             
             
     def reset(self):
@@ -180,8 +170,8 @@ class App(object):
             self.click_list = []
             self.list_output = "00:00"
             self.textvar.set(self.list_output)
-            self.mytimer.reset_case = True
-            self.mytimer.pause_case = False
+            self.mytimer.reset()
+            self.mytimer.is_paused = False
         else:
             print len(self.reset_click_list)
             self.list_output = "%s%s:%s%s" %(self.list_output[0], 
@@ -189,10 +179,6 @@ class App(object):
                                              self.list_output[2],
                                              self.list_output[3])
             self.textvar.set(self.list_output)
-            
-            self.mytimer.reset_case = False
-            
-        return self.mytimer.reset_case
         
         
         
@@ -247,21 +233,18 @@ class App(object):
         self.mytimer.start_timer(self.compute_actual_seconds())
         self.gui_countdown()
         
-    def pause(self):
-        print "the pause button has been pressed"
-        print "this is the current output %s" % self.mytimer.format_time(self.mytimer.time_left())
-        
-        self.mytimer.pause_case = True
-        
-        return self.mytimer.pause_case
-        
-    def toggle_button(self):
-        if self.start_button.config('text')[-1] == 'START':
+    def toggle_button(self, tog=[0]):
+        tog[0] = not tog[0]
+        if tog[0]:
             self.start_button.config(text='PAUSE')
             self.start()
+            return self.output
+            
         else:
-            self.start_button.config(text='START', command=self.start)
-            self.pause()
+            self.start_button.config(text='START')
+            self.mytimer.toggle_pause_timer()
+            return self.output
+            
       
     
 if __name__ == "__main__":
