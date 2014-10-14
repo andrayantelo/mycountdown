@@ -81,6 +81,7 @@ class Mycountdown(object):
         self.done_with_work = time.time()
         
 def no_newline_print(text):
+    """prints a line."""
     sys.stdout.write(text)
     # make sure it gets printedS
     sys.stdout.flush()
@@ -90,6 +91,23 @@ def no_newline_print(text):
 class App(object):
     
     def __init__(self):
+        """ __init__ method for the app.
+        
+        Attributes:
+        self.click_list: Represents the number of times the click method 
+        has run, it runs when a number is pressed on the gui.
+        
+        self.output: Represents what gets printed on the label of the gui.
+        
+        self.actual_seconds: Represents how many seconds the user wants
+        counted down, defaults to 0.
+        
+        self.list_output: What gets printed on the gui as a list, self.output as a list.
+        
+        self.reset_click_list: Represents the number of times the reset
+        method has been run.
+        """
+        
         self.mytimer = Mycountdown()
         self.root = tk.Tk()
         self.root.title("My Countdown")
@@ -128,26 +146,24 @@ class App(object):
                 row +=1
             if n == 9:
                 column = 2
-        
-        
         self.click_list = []
         self.output = "00:00"
+
         self.actual_seconds = 0
         self.list_output = []
         self.reset_click_list = []
-        self.tog = [0]
+        
        
         
     def gui_countdown(self):
+        """ Determines what the GUI does based on the different states of
+        being of the timer. """
         
-        # if True and False and False
         if not self.mytimer.is_time_expired() and not self.mytimer.is_paused:
             self.output = self.mytimer.format_time(self.mytimer.time_left())
-            #print repr(self.output)
             self.textvar.set(self.output)
             self.root.after(1000, self.gui_countdown)
         
-        # if True
         elif self.mytimer.is_time_expired():
             self.textvar.set("Time's up!")
             self.mytimer.play_alert()
@@ -163,14 +179,21 @@ class App(object):
             
             
     def reset(self):
+        """ Resets the timer.
+        
+        The first time it is reset it resets the timer to the start amount.
+        The second time it resets to "00:00".
+        """
+        
         self.reset_click_list.append('1')
         print len(self.reset_click_list)
         
         if len(self.reset_click_list) == 2:
             self.reset_click_list = []
             self.click_list = []
-            self.list_output = "00:00"
-            self.textvar.set(self.list_output)
+            self.output = "00:00"
+           
+            self.textvar.set(self.output)
             self.mytimer.reset()
             self.mytimer.is_paused = False
         else:
@@ -184,12 +207,15 @@ class App(object):
                                              self.list_output[3])
             self.textvar.set(self.output)
             return self.output
-        return self.tog[0]
+      
             
         
         
         
     def click(self, number_button):
+        """ Determines what to display on the GUI based on what the user
+        inputs.
+        """
      
         self.click_list.append(number_button)
         
@@ -221,6 +247,7 @@ class App(object):
         return self.output
         
     def compute_actual_seconds(self):
+        """ Takes the users input and calculates the exact number of seconds."""
         
         if self.output == "00:00":
             raise ValueError("Please input a time greater than 00:00")
@@ -236,6 +263,7 @@ class App(object):
         return self.actual_seconds
         
     def start(self):
+        """ Starts the countdown on the GUI."""
         
         self.mytimer.start_timer(self.compute_actual_seconds())
         self.gui_countdown()
@@ -243,8 +271,10 @@ class App(object):
         return self.reset_click_list
         
     def toggle_button(self, tog=[0]):
-        self.tog[0] = not self.tog[0]
-        if self.tog[0]:
+        """ Toggles START/PAUSE button."""
+        
+        tog[0] = not tog[0]
+        if tog[0]:
             self.start_button.config(text='PAUSE')
             if self.mytimer.is_paused:
                 self.mytimer.toggle_pause_timer()
