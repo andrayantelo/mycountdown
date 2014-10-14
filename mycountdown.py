@@ -95,13 +95,11 @@ class App(object):
         self.root.title("My Countdown")
         self.textvar = tk.StringVar()
         self.textvar.set("00:00")
-        self.count = []
         
         self.label = tk.Label(textvariable=self.textvar, font=16).grid(row=0, columnspan=8)
         self.start_button = tk.Button(self.root, text="START", fg="blue",
                                       command=self.toggle_button, width=5)
         self.start_button.grid(row=1, column=1)
-        #self.start_button.pack(pady=5)
         self.reset_button = tk.Button(self.root, text="RESET", fg="yellow",
                                       command=self.reset, width=5)
         self.reset_button.grid(row=1, column=2)
@@ -120,7 +118,7 @@ class App(object):
         n = 0
         number_button = list(range(len(self.button_list)))
         for label in self.button_list:
-            button_command = partial(self.click, label, len(self.count))
+            button_command = partial(self.click, label)
             number_button[n] = tk.Button(lf, text=label, width=5, command=button_command)
             number_button[n].grid(row=row, column=column)
             n += 1
@@ -191,7 +189,7 @@ class App(object):
         
         
         
-    def click(self, number_button, count):
+    def click(self, number_button):
      
         self.click_list.append(number_button)
         
