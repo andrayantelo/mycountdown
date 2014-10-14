@@ -11,7 +11,7 @@ import tkFont
 
 class Mycountdown(object):
     
-    def __init__(self, work_time, down_time):
+    def __init__(self):
         """ Create a Pomodoro timer.
         
         Parameters:
@@ -21,16 +21,17 @@ class Mycountdown(object):
             how long in minutes you will be on break
         """
             
-        self.work_time = work_time * 60
-        self.down_time = down_time * 60
+        #self.work_time = work_time * 60
+        #self.down_time = down_time * 60
         self.done_with_work = time.time()
         self.reset_case = True
-        self.pause_case = False
+        self.is_paused = False
+        self.time_of_pause = time.time()
        
         
     def start_timer(self, done_time):
         """ Start the timer."""
-        
+        done_time = done_time * 60
         self.start_time = time.time()
         self.done_with_work = self.start_time + done_time
         
@@ -64,13 +65,20 @@ class Mycountdown(object):
         
         sounda.play()
         
-    def pause_timer(self):
+    def toggle_pause_timer(self):
         """Pauses the timer"""
-        pause_click_time = time.time()
         
+        if not self.is_paused:
+            self.time_of_pause = time.time()
+            self.is_paused = True
+        elif self.is_paused:
+            pause_duration = time.time() - self.time_of_pause
+            self.done_with_work += pause_duration
+            self.is_paused = False
+            
     def reset(self):
         """Resets the timer"""
-        pass
+        self.done_with_work = time.time()
         
 def no_newline_print(text):
     sys.stdout.write(text)
@@ -82,7 +90,7 @@ def no_newline_print(text):
 class App(object):
     
     def __init__(self):
-        self.mytimer = Mycountdown(5, 25)
+        self.mytimer = Mycountdown()
         self.root = tk.Tk()
         self.root.title("My Countdown")
         self.textvar = tk.StringVar()
