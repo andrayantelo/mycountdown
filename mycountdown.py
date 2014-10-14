@@ -192,7 +192,6 @@ class App(object):
             self.reset_click_list = []
             self.click_list = []
             self.output = "00:00"
-           
             self.textvar.set(self.output)
             self.mytimer.reset()
             self.mytimer.is_paused = False
@@ -241,7 +240,7 @@ class App(object):
         
         self.output = "%s%s:%s%s" %(self.list_output[0],self.list_output[1],self.list_output[2],
                                     self.list_output[3])
-        #print self.output
+        
         self.textvar.set(self.output)
         
         return self.output
@@ -268,7 +267,7 @@ class App(object):
         self.mytimer.start_timer(self.compute_actual_seconds())
         self.gui_countdown()
         self.reset_click_list = []
-        return self.reset_click_list
+        
         
     def toggle_button(self, tog=[0]):
         """ Toggles START/PAUSE button."""
@@ -301,10 +300,6 @@ if __name__ == "__main__":
     app.root.mainloop()
     
     
-    
-
-# want to figure out a way to pause it
-# make a GUI
 # change format to 00:00:00
 # figure out why it says that there is no soundcard
 	
