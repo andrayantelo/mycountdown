@@ -302,4 +302,4 @@ if __name__ == "__main__":
     
 # change format to 00:00:00
 # figure out why it says that there is no soundcard
-	
+# Need to have this looked at, errors or places to fix things pointed out.
